@@ -23,13 +23,13 @@
 
 typedef	struct	s_lemin
 {
-	char		*read_tab;
+	char		*input;
 
 }				t_lemin;
 
 /*
  * read.c
 */
-int			read_input(t_lemin *env);
+char		*read_input(void);
 
 #endif

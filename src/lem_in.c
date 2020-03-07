@@ -17,9 +17,9 @@ int		main(void)
 	t_lemin		*env;
 
 	//init(env)
-	if (read_input(env))
+	if (!(env->input = read_input()))
 		return (-1); //Fonction error free
-	ft_putstr(env->read_tab);
+	ft_putstr(env->input);
 
 	return (0);
 }
