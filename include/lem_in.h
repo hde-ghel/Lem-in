@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 14:58:44 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/03/07 17:34:27 by hde-ghel         ###   ########.fr       */
+/*   Updated: 2020/03/08 18:03:28 by hde-ghel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 typedef	struct	s_lemin
 {
 	char		*input;
+	int			input_index;
+	int			nb_ants;
 
 }				t_lemin;
 
@@ -31,5 +33,15 @@ typedef	struct	s_lemin
  * read.c
 */
 char		*read_input(void);
+
+/*
+ * error.c
+*/
+int			error(char *str);
+
+/*
+ * parsing.c
+*/
+int			parse_input(t_lemin *env);
 
 #endif
