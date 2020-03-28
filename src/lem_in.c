@@ -12,16 +12,37 @@
 
 #include "../include/lem_in.h"
 
-int		main(void)
+void		print_usage()
+{
+	ft_putendl("usage: ./lem_in ");
+}
+
+void	check_arg(t_lemin *env, char **av, int ac)
+{
+	int		i;
+
+	i = 1;
+	while (i < ac)
+	{
+		if (ft_strequ(av[i], "-h"))
+			print_usage();
+		else if (ft_strequ(av[i], "-l"))
+			env->log = PRINT_LOG;
+		//else if (ft_strequ(av[i], "-m"))
+		//	read_file();
+		else
+			error_msg("error: wrong option\nusage: ./lem_in\n");
+		i++;
+	}
+}
+
+int		main(int ac, char **av)
 {
 	t_lemin		*env;
 
-	if (!(env->input = read_input()))
-		return (error("malloc error")); //Fonction error free
-	if ((parse_input(env)))
-		return (-1);
-	ft_putstr(env->input);
-	printf("\nnb_ants = %d\n", env->nb_ants);
-
+	ft_bzero(&env, sizeof(env));
+	if (ac != 1)
+		check_arg(env, av, ac);
+	parse_input(env);
 	return (0);
 }

@@ -12,50 +12,50 @@
 
 #include "../include/lem_in.h"
 
-int		get_command(t_lemin *env)
+//passe les commentaires et recupere les commandes start et end
+void		get_comment(t_lemin *env, char *line)
 {
-	return (0);
-}
-
-int		get_comment(t_lemin *env)
-{
-	if (env->input[env->input_index + 1] == '#')
-		return (get_command(env));
-	else
+	if (ft_strequ(line, "##start"))
+		{
+			if (env->start_room != 0)
+				error_free_str("ERROR more than one room start", line);
+			else
+				env->start_room = 1;
+		}
+	else if (ft_strequ(line, "##end"))
 	{
-		while (env->input[env->input_index] && env->input[env->input_index] != '\n')
-			env->input[env->input_index] += 1;
+			if (env->end_room != 0)
+				error_free_str("ERROR more than 1 room end", line);
+			else
+				env->end_room = 1;
 	}
-	return (0);
 }
 
-int		get_ant(t_lemin *env)
+void		get_ants(t_lemin *env)
 {
 	int		i;
+	int		ret;
+	char	*line;
 
-	i = env->input_index;
-	while (env->input[i] && env->input[i] != '\n')
+	i = 0;
+	line = NULL;
+	while ((ret = get_next_line(env->fd, &line)) > 0)
 	{
-		if (!ft_isdigit(env->input[i]))
-			return (error("ERROR"));
-		i++;
+		if (!ft_isdigit(line[i]))
+			error_free_str("ERROR", line);
 	}
-	if ((env->nb_ants = ft_atoi(&env->input[env->input_index])) < 0)
-		return (error("ERROR"));
-	env->input_index += i + 1;
-	return (0);
+	if (ret == -1)
+		error_msg("ERROR malloc GNL in get_ants()");
+	if ((env->nb_ants = ft_atoi(line)) < 0)
+		error_free_str("ERROR negative numbers of ants", line);
 }
 
-int		parse_input(t_lemin *env)
+void	parse_input(t_lemin *env)
 {
-	env->input_index = 0;
-	if (get_ant(env) == -1)
-		return (-1);
-	while (env->input[env->input_index])
-	{
-		if (env->input[env->input_index] == '#')
-			get_comment(env);
-		env->input[env->input_index] += 1; //passe le \n
-	}
-	return (0);
+	get_ants(env);
+	//get_rooms();
+	//get_link();
+	//get_comment(env);
+	if (env->log == PRINT_LOG)
+		printf("nb ants =%d\n", env->nb_ants);
 }

@@ -17,31 +17,28 @@
 # include <unistd.h>
 # include <stdio.h> //a retiré !!!
 
-# define BUFF_SIZE 500
-
-
+# define PRINT_LOG 1
 
 typedef	struct	s_lemin
 {
-	char		*input;
-	int			input_index;
+
+	int			fd;
+	int			start_room;
+	int			end_room;
 	int			nb_ants;
 
+	int			log;
 }				t_lemin;
-
-/*
- * read.c
-*/
-char		*read_input(void);
 
 /*
  * error.c
 */
-int			error(char *str);
+void		error_msg(char *str);
+void		error_free_str(char *msg, char *str);
 
 /*
  * parsing.c
 */
-int			parse_input(t_lemin *env);
+void		parse_input(t_lemin *env);
 
 #endif
