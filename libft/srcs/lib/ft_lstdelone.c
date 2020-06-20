@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/08 14:21:44 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/03/08 15:09:59 by hde-ghel         ###   ########.fr       */
+/*   Created: 2018/10/29 15:13:24 by hde-ghel          #+#    #+#             */
+/*   Updated: 2018/10/29 16:53:27 by hde-ghel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem_in.h"
+#include "../../includes/libft.h"
 
-void	error_msg(t_lemin *env, char *msg)
+void	ft_lstdelone(t_list **alst, void (*del)(void*, size_t))
 {
-	ft_putstr_fd(msg, 2);
-	if (env->fd)
-		close(env->fd);
-	exit(-1);
-}
-
-void	error_free_str(t_lemin *env,char *msg, char *str)
-{
-	ft_putstr_fd(msg, 2);
-	ft_strdel(&str);
-	if (env->fd)
-		close(env->fd);
-	exit(-1);
+	if (!alst || !del)
+		return ;
+	del((*alst)->content, (*alst)->content_size);
+	free(*alst);
+	*alst = NULL;
+	return ;
 }

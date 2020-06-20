@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/08 14:21:44 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/03/08 15:09:59 by hde-ghel         ###   ########.fr       */
+/*   Created: 2018/10/14 18:34:51 by hde-ghel          #+#    #+#             */
+/*   Updated: 2018/10/17 17:40:55 by hde-ghel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem_in.h"
+#include "../../includes/libft.h"
 
-void	error_msg(t_lemin *env, char *msg)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	ft_putstr_fd(msg, 2);
-	if (env->fd)
-		close(env->fd);
-	exit(-1);
-}
+	size_t s;
+	size_t j;
+	size_t i;
 
-void	error_free_str(t_lemin *env,char *msg, char *str)
-{
-	ft_putstr_fd(msg, 2);
-	ft_strdel(&str);
-	if (env->fd)
-		close(env->fd);
-	exit(-1);
+	s = ft_strlen(src);
+	j = ft_strlen(dst);
+	if (size <= j)
+		return (s + size);
+	size = size - j - 1;
+	i = 0;
+	while (src[i] != '\0' && size > 0)
+	{
+		dst[j + i] = src[i];
+		i++;
+		size--;
+	}
+	dst[j + i] = '\0';
+	return (s + j);
 }

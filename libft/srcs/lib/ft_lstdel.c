@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/08 14:21:44 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/03/08 15:09:59 by hde-ghel         ###   ########.fr       */
+/*   Created: 2018/10/29 15:11:56 by hde-ghel          #+#    #+#             */
+/*   Updated: 2018/10/29 18:25:11 by hde-ghel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem_in.h"
+#include "../../includes/libft.h"
 
-void	error_msg(t_lemin *env, char *msg)
+void	ft_lstdel(t_list **alst, void (*del)(void*, size_t))
 {
-	ft_putstr_fd(msg, 2);
-	if (env->fd)
-		close(env->fd);
-	exit(-1);
-}
+	t_list	*tmp;
 
-void	error_free_str(t_lemin *env,char *msg, char *str)
-{
-	ft_putstr_fd(msg, 2);
-	ft_strdel(&str);
-	if (env->fd)
-		close(env->fd);
-	exit(-1);
+	if (!alst || !del)
+		return ;
+	while (*alst)
+	{
+		tmp = (*alst)->next;
+		del((*alst)->content, (*alst)->content_size);
+		free(*alst);
+		*alst = tmp;
+	}
+	*alst = NULL;
 }

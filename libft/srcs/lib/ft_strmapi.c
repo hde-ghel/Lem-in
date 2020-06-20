@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/08 14:21:44 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/03/08 15:09:59 by hde-ghel         ###   ########.fr       */
+/*   Created: 2018/10/21 16:12:12 by hde-ghel          #+#    #+#             */
+/*   Updated: 2019/10/12 17:35:28 by hde-ghel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem_in.h"
+#include "../../includes/libft.h"
 
-void	error_msg(t_lemin *env, char *msg)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	ft_putstr_fd(msg, 2);
-	if (env->fd)
-		close(env->fd);
-	exit(-1);
-}
+	char			*dst;
+	unsigned int	i;
+	unsigned int	j;
 
-void	error_free_str(t_lemin *env,char *msg, char *str)
-{
-	ft_putstr_fd(msg, 2);
-	ft_strdel(&str);
-	if (env->fd)
-		close(env->fd);
-	exit(-1);
+	if (!s || !f)
+		return (NULL);
+	i = 0;
+	j = (unsigned int)ft_strlen((char *)s);
+	if (!(dst = ft_strnew(j)))
+		return (NULL);
+	while (i != j)
+	{
+		dst[i] = f(i, s[i]);
+		i++;
+	}
+	return (dst);
 }

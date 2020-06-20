@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/08 14:21:44 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/03/08 15:09:59 by hde-ghel         ###   ########.fr       */
+/*   Created: 2018/10/16 18:15:39 by hde-ghel          #+#    #+#             */
+/*   Updated: 2018/10/16 22:21:50 by hde-ghel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem_in.h"
+#include "../../includes/libft.h"
 
-void	error_msg(t_lemin *env, char *msg)
+char	*ft_strrchr(const char *s, int c)
 {
-	ft_putstr_fd(msg, 2);
-	if (env->fd)
-		close(env->fd);
-	exit(-1);
-}
+	int i;
 
-void	error_free_str(t_lemin *env,char *msg, char *str)
-{
-	ft_putstr_fd(msg, 2);
-	ft_strdel(&str);
-	if (env->fd)
-		close(env->fd);
-	exit(-1);
+	i = ft_strlen(s);
+	while (s[i] != (char)c && i != 0)
+		i--;
+	if (s[i] == (char)c)
+		return ((char *)&s[i]);
+	return (NULL);
 }

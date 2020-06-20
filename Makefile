@@ -13,10 +13,10 @@
 NAME = lem_in
 CC = gcc
 #FLAGS = -Wall -Werror -Wextra
-FLAGS = -fsanitize=address
+#FLAGS = -fsanitize=address
 LIBFT = $(LIBDIR)libft.a
 SRCDIR = ./src/
-OBJDIR = ./obj/
+OBJDIR = ./objs
 LIBDIR = ./libft/
 INCL = ./include/
 
@@ -25,47 +25,65 @@ FILES = $(shell find src -type f | grep -E "\.c$$" | sed 's/src//g')
 SRC = $(addprefix $(SRCDIR), $(FILES))
 OBJ = $(addprefix $(OBJDIR), $(FILES:.c=.o))
 SRCSUBDIR = $(shell find ./src -type d)
-OBJSUBDIR = $(SRCSUBDIR:./src%=./obj%)
+OBJSUBDIR = $(SRCSUBDIR:./src%=./objs%)
 LONGEST = $(shell echo $(notdir $(SRC)) | tr " " "\n" | \
 	awk ' { if ( lenght > x ) { x = lenght; y = $$0 } }END{ print y }' | wc -c )
 
-C_CYAN = \033[96m
-C_GREEN = \033[32m
-C_RED = \033[32m
-C_MAG = \033[1;35m
-C_RESET = \033[1;39
+colcyan = "\033[96m"
+colgreen = "\033[32m"
+colred = "\033[32m"
+colmag = "\033[1;35m"
+colreset = "\033[0;0m"
 
 all: lib $(NAME)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCL)
-	@printf "$(C_MAG)Compiling %-$(LONGEST)s" $(notdir $<)
+$(OBJDIR)/%.o:$(SRCDIR)/%.c $(INCL)
+	@printf $(colmag)
+	@printf "Compiling %-$(LONGEST)s" $(notdir $<)
 	@$(CC) $(FLAGS) -o $@ -c $<
-	@printf "  $(C_CYAN)[$(C_GREEN)✔$(C_CYAN)]$(C_RESET)"
+	@printf $(colcyan)[$(colgreen)✔$(colcyan)]$(colreset)
 	@printf "\r"
 
 lib:
 	@make -C $(LIBDIR)
-	@echo "$(C_CYAN)libft compilation       [$(C_GREEN)✔$(C_CYAN)]$(C_RESET)"
 
 $(OBJSUBDIR):
 	@mkdir $@
 
 $(NAME): $(OBJSUBDIR) $(OBJ)
-	@echo "$(C_CYAN)Lem-in   OBJ creation   [$(C_GREEN)✔$(C_CYAN)] $(C_RESET)"
+	@printf $(colcyan)
+	@printf "Lem-in OBJ creation     "
+	@printf $(colcyan)[$(colgreen)✔$(colcyan)]
+	@printf "                                \n"
 	@$(CC) $(FLAGS) $(OBJ) -o $(NAME) $(LIBFT) -I $(INCL)
-	@echo "$(C_CYAN)Lem-in OBJ compilation  [$(C_GREEN)✔$(C_CYAN)]$(C_RESET)"
+	@printf "Lem-in OBJ compilation  "
+	@printf $(colcyan)[$(colgreen)✔$(colcyan)]
+	@printf "                                \n"
+
 
 clean:
 	@rm -rf $(OBJDIR)
-	@echo "$(C_CYAN)Deleting libftprintf OBJ[$(C_GREEN)✔$(C_CYAN)]"
+	@printf $(colcyan)
+	@printf "Deleting Lem-in OBJ     "
+	@printf $(colcyan)[$(colgreen)✔$(colcyan)]
+	@printf "                                \n"
 	@make -C $(LIBDIR) clean
-	@echo "$(C_CYAN)Deleting libft OBJ      [$(C_GREEN)✔$(C_CYAN)]$(C_RESET)"
+	@printf $(colcyan)
+	@printf "Deleting libft OBJ      "
+	@printf $(colcyan)[$(colgreen)✔$(colcyan)]
+	@printf "                                \n"
 
 fclean: clean
 	@rm -rf $(NAME)
-	@echo "$(C_CYAN)Deleting libftprintf.a  [$(C_GREEN)✔$(C_CYAN)]"
+	@printf $(colcyan)
+	@printf "Deleting lemin          "
+	@printf $(colcyan)[$(colgreen)✔$(colcyan)]
+	@printf "                                \n"
 	@rm -rf $(LIBFT)
-	@echo "$(C_CYAN)Deleting libft.a        [$(C_GREEN)✔$(C_CYAN)]$(C_RESET)"
+	@printf $(colcyan)
+	@printf "Deleting libft.a        "
+	@printf $(colcyan)[$(colgreen)✔$(colcyan)]
+	@printf "                                \n"
 
 re: fclean all
 

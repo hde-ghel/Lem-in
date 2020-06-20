@@ -1,7 +1,8 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   get_ants.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,43 +13,44 @@
 
 #include "../include/lem_in.h"
 
-//Pas sur de recup les comment
-void		get_comment(char *str)
+
+static int		isnbr(char *str)
 {
-	ft_printf("%s\n", str);
+	int		i;
+
+	i = 0;
+	while(str[i + 1] && (str[i] == '-' || str[i] == '+' || str[i] == ' '))
+		i++;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return(-1);
+		i++;
+	}
+	return(1);
 }
-/*
-void		parse_links(t_lemin *env)
+
+void		parse_ants(t_lemin *env)
 {
 	int		ret;
 	char	*line;
 
-	ret = 0;
 	line = NULL;
-
 	while ((ret = get_next_line(env->fd, &line)) > 0)
 	{
-		if (line[0] == '#' && ft_strlen(line) > 1 && line[1] != '#')
-			get_comment(line);
-		else if (line[0] == '#' && ft_strlen(line) > 1 && line[1] == '#')
-			get_command(env, line);
-		else if (isroom(line))
-			new_room(env, line);
-		else
+		if (isnbr(line) == 1)
+		{
+			if ((env->nb_ants = ft_atoi(line)) <= 0)
+				error_free_str(env, "ERROR numbers of ants is negative or null\n", line);
 			break;
+		}
+		else if (line[0] == '#' && line[1] && line[1] != '#')
+			get_comment(line);
+		else
+			error_free_str(env, "ERROR wrong format for ants number\n", line);
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
-	if (ret == -1)
-		error_msg("ERROR: file error");
-}
-*/
-void	parse_input(t_lemin *env)
-{
-	if (isatty(env->fd))
-		error_msg(env, "No map file specified");
-	parse_ants(env);
-	printf("nb ants = %d\n", env->nb_ants);
-	parse_rooms(env);
-	//parse_links();
+	if (ret == -1 || ret == 0)
+		error_msg(env, "ERROR: file error or empty file\n");
 }
