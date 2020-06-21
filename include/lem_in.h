@@ -25,6 +25,7 @@
 typedef	struct	s_lemin
 {
 	int			fd;
+	char		*line;
 	int			start_room;
 	int			end_room;
 	int			nb_ants;

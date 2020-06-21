@@ -44,7 +44,7 @@ int		count_space(char *line)
 	{
 		if (*line == ' ')
 			space++;
-		*line++;
+		line++;
 	}
 	return (space);
 }
@@ -80,22 +80,23 @@ int		isroom(char *line)
 void		parse_rooms(t_lemin *env)
 {
 	int		ret;
-	char	*line;
 
 	ret = 0;
-	line = NULL;
-	while ((ret = get_next_line(env->fd, &line)) > 0)
+	while ((ret = get_next_line(env->fd, &env->line)) > 0)
 	{
-		if (line[0] == '#' && ft_strlen(line) > 1 && line[1] != '#')
-			get_comment(line);
-		else if (line[0] == '#' && ft_strlen(line) > 1 && line[1] == '#')
-			get_command(env, line);
-		else if (isroom(line))
-			new_room(env, line);
+		if (env->line[0] == '#' && ft_strlen(env->line) > 1 && env->line[1] != '#')
+			get_comment(env->line);
+		else if (env->line[0] == '#' && ft_strlen(env->line) > 1 && env->line[1] == '#')
+			get_command(env, env->line);
+		else if (isroom(env->line))
+			new_room(env, env->line);
 		else
 			break;
-		ft_strdel(&line);
+		ft_strdel(&env->line);
 	}
 	if (ret == -1 || ret == 0)
-		error_msg(env, "ERROR: reading error or EOF"); // strdel(line) free(rooms)
+	{
+		ft_strdel(&env->line);
+		error_msg(env, "ERROR: reading error or no pipes given"); // strdel(line) free(rooms)
+		}
 }
