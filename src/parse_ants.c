@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -12,6 +11,10 @@
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
+
+# define ERROR_NUM "ERROR numbers of ants is negative or null\n"
+# define ERROR_FORM "ERROR wrong format for ants number\n"
+# define ERROR_FILE "ERROR: file error or empty file\n"
 
 
 static int		isnbr(char *str)
@@ -41,16 +44,16 @@ void		parse_ants(t_lemin *env)
 		if (isnbr(line) == 1)
 		{
 			if ((env->nb_ants = ft_atoi(line)) <= 0)
-				error_free_str(env, "ERROR numbers of ants is negative or null\n", line);
+				error_free_str(env, ERROR_NUM, line);
 			break;
 		}
 		else if (line[0] == '#' && line[1] && line[1] != '#')
 			get_comment(line);
 		else
-			error_free_str(env, "ERROR wrong format for ants number\n", line);
+			error_free_str(env, ERROR_FORM, line);
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
 	if (ret == -1 || ret == 0)
-		error_msg(env, "ERROR: file error or empty file\n");
+		error_msg(env, ERROR_FILE);
 }
