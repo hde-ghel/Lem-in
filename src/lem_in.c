@@ -12,11 +12,13 @@
 
 #include "../include/lem_in.h"
 
+# define USAGE "usage:\n./lem_in < \"map-file\" or ./lem_in -m \"map-file\"\n\
+		\nOptions:\n-h : print usage (only print usage)\
+		\n-i : print input\n-m : enter a file-name\n"
+
 void		print_usage(t_lemin *env)
 {
-	ft_putendl("usage:\n./lem_in < \"map-file\" or ./lem_in -m \"map-file\"\n\
-\nOptions:\n-h : print usage (only print usage)\n-i : print input\n-m : \
-enter a file-name\n");
+	ft_putendl(USAGE);
 	if (env->fd)
 		close(env->fd);
 	exit(0);
