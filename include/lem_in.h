@@ -20,17 +20,50 @@
 
 # include <stdio.h> //a retiré !!!
 
-# define PRINT_LOG 1
+# define	PRINT_LOG 1
+# define	HASH_SIZE 500000
+# define	MAX_WEIGHT INT_MAX -10
+
+typedef struct s_room		t_room;
+
+typedef	struct	s_xy
+{
+	int		x;
+	int		y;
+}								t_xy;
+
+struct	s_room
+{
+	char					*name;
+	t_xy					coord;
+	int						type;
+	unsigned long	key;
+	int						weight;
+	t_room				*next;
+};
+
+typedef	struct	s_links
+{
+	t_room		*room_a;
+	t_room		*room_b;
+	int				weight;
+}								t_links;
+
 
 typedef	struct	s_lemin
 {
-	int			fd;
-	char		*line;
-	int			start_room;
-	int			end_room;
-	int			nb_ants;
+	t_room					*map[HASH_SIZE];
 
-	int			log;
+
+	int							fd;
+	char						*line;
+	int							start_room;
+	int							end_room;
+	int							nb_ants;
+	unsigned long		nb_rooms;
+	t_room					*start;
+	t_room					*end;
+	int							log;
 }				t_lemin;
 
 /*
@@ -38,6 +71,7 @@ typedef	struct	s_lemin
 */
 void		error_msg(t_lemin *env, char *str);
 void		error_free_str(t_lemin *env, char *msg, char *str);
+void free_room_map(t_lemin *env);
 
 /*
  * parsing.c
@@ -60,5 +94,14 @@ void		parse_rooms(t_lemin *env);
  * parse_links.c
 */
 void		parse_links(t_lemin *env);
+/*
+ * Hash.c
+*/
+unsigned long	hash_key(char *name);
+
+/*
+ * print_utils.c
+*/
+void print_room_map(t_lemin *env);
 
 #endif

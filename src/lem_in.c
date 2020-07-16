@@ -64,5 +64,6 @@ int		main(int ac, char **av)
 	parse_input(&env);
 	if (env.fd)
 		close(env.fd);
+	free_room_map(&env);
 	return (0);
 }

@@ -12,9 +12,50 @@
 
 #include "../include/lem_in.h"
 
-void		new_room(t_lemin *env, char *line)
+t_xy save_room_coord(char *line)
 {
-	ft_printf("new room : %s\n", line);
+	t_xy 		coord;
+	int			i;
+
+	i = 0;
+	while (line[i] != ' ')
+		i++;
+	coord.x = ft_atoi(&line[i]);
+	i++;
+	while(line[i] != ' ')
+	i++;
+	coord.y = ft_atoi(&line[i]);;
+	return (coord);
+}
+
+void		new_room(t_lemin *env, char *line) //peut etre rajouter une check savoir si la room existe deja
+{
+	t_room		*new;
+
+	if (!(new = malloc(sizeof(t_room))))
+		error_msg(env, "ERROR: memory allocation failed"); // malloc error free
+	ft_bzero(new, sizeof(t_room));
+	new->name = ft_strsub(line, 0, strchr(line, ' ') - line); // protection
+	new->coord = save_room_coord(line);
+	new->key = hash_key(new->name);
+	if (env->start_room == 1)
+		{
+			env->start_room++;
+			env->start = new;
+		}
+	else if (env->end_room == 1)
+	{
+		env->end_room++;
+		new->weight = MAX_WEIGHT;
+		env->end = new;
+	}
+	if (env->map[new->key] == NULL)
+		env->map[new->key] = new;
+	else
+		{
+			new->next = env->map[new->key];
+			env->map[new->key] = new;
+		}
 }
 
 void		get_command(t_lemin *env, char *line)
@@ -33,6 +74,7 @@ void		get_command(t_lemin *env, char *line)
 			else
 				env->end_room = 1;
 	}
+	//else error command unknown
 }
 
 int		count_space(char *line)
@@ -95,8 +137,5 @@ void		parse_rooms(t_lemin *env)
 		ft_strdel(&env->line);
 	}
 	if (ret == -1 || ret == 0)
-	{
-		ft_strdel(&env->line);
 		error_msg(env, "ERROR: reading error or no pipes given"); // strdel(line) free(rooms)
-		}
 }
