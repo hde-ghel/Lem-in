@@ -27,7 +27,7 @@ OBJ = $(addprefix $(OBJDIR), $(FILES:.c=.o))
 SRCSUBDIR = $(shell find ./src -type d)
 OBJSUBDIR = $(SRCSUBDIR:./src%=./objs%)
 LONGEST = $(shell echo $(notdir $(SRC)) | tr " " "\n" | \
-	awk ' { if ( lenght > x ) { x = lenght; y = $$0 } }END{ print y }' | wc -c )
+	awk '{if (lenght > x) {x = lenght; y = $$0}}END{print y}' | wc -c )
 
 colcyan = "\033[96m"
 colgreen = "\033[32m"
