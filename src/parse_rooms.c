@@ -38,6 +38,7 @@ void		new_room(t_lemin *env, char *line) //peut etre rajouter une check savoir s
 	new->name = ft_strsub(line, 0, strchr(line, ' ') - line); // protection
 	new->coord = save_room_coord(line);
 	new->key = hash_key(new->name);
+	env->nb_rooms++;
 	if (env->start_room == 1)
 		{
 			env->start_room++;
