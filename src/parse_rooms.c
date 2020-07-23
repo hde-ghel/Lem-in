@@ -12,6 +12,11 @@
 
 #include "../include/lem_in.h"
 
+# define ERROR_MEM "ERROR: memory allocation failed"
+# define ERROR_START "ERROR: more than one room ##start"
+# define ERROR_END "ERROR: more than one room ##end"
+# define ERROR_READ "ERROR: reading error or no pipes given"
+
 t_xy save_room_coord(char *line)
 {
 	t_xy 		coord;
@@ -33,7 +38,7 @@ void		new_room(t_lemin *env, char *line) //peut etre rajouter une check savoir s
 	t_room		*new;
 
 	if (!(new = malloc(sizeof(t_room))))
-		error_msg(env, "ERROR: memory allocation failed"); // malloc error free
+		error_msg(env, ERROR_MEM); // malloc error free
 	ft_bzero(new, sizeof(t_room));
 	new->name = ft_strsub(line, 0, strchr(line, ' ') - line); // protection
 	new->coord = save_room_coord(line);
@@ -65,14 +70,14 @@ void		get_command(t_lemin *env, char *line)
 	if (ft_strequ(line, "##start"))
 		{
 			if (env->start_room != 0)
-				error_free_str(env, "ERROR more than one room ##start", line);
+				error_free_str(env, ERROR_START, line);
 			else
 				env->start_room = 1;
 		}
 	else if (ft_strequ(line, "##end"))
 	{
 			if (env->end_room != 0)
-				error_free_str(env, "ERROR more than 1 room ##end", line);
+				error_free_str(env, ERROR_END, line);
 			else
 				env->end_room = 1;
 	}
@@ -139,5 +144,5 @@ void		parse_rooms(t_lemin *env)
 		ft_strdel(&env->line);
 	}
 	if (ret == -1 || ret == 0)
-		error_msg(env, "ERROR: reading error or no pipes given"); // strdel(line) free(rooms)
+		error_msg(env, ERROR_READ); // strdel(line) free(rooms)
 }
