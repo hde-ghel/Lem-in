@@ -48,8 +48,15 @@ void		bellman_ford(t_lemin *env)
 	}
 }
 
-
 void    find_paths(t_lemin *env)
 {
+  t_room *tmp;
+
   bellman_ford(env);
+  tmp = env->end;
+  while (tmp)
+  {
+    ft_printf("%s->", tmp->name);
+    tmp = tmp->path_next;
+  }
 }
