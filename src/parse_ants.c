@@ -12,8 +12,8 @@
 
 #include "../include/lem_in.h"
 
-# define ERROR_NUM "ERROR numbers of ants is negative or null\n"
-# define ERROR_FORM "ERROR wrong format for ants number\n"
+# define ERROR_NUM "ERROR: numbers of ants is negative or null\n"
+# define ERROR_FORM "ERROR: wrong format for ants number\n"
 # define ERROR_FILE "ERROR: file error or empty file\n"
 
 

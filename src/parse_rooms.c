@@ -16,6 +16,7 @@
 # define ERROR_START "ERROR: more than one room ##start"
 # define ERROR_END "ERROR: more than one room ##end"
 # define ERROR_READ "ERROR: reading error or no pipes given"
+# define ERROR_CMD "ERROR: command unknown"
 
 t_xy save_room_coord(char *line)
 {
@@ -65,7 +66,7 @@ void		new_room(t_lemin *env, char *line) //peut etre rajouter une check savoir s
 		}
 }
 
-void		get_command(t_lemin *env, char *line)
+static void		get_command(t_lemin *env, char *line)
 {
 	if (ft_strequ(line, "##start"))
 		{
@@ -81,7 +82,8 @@ void		get_command(t_lemin *env, char *line)
 			else
 				env->end_room = 1;
 	}
-	//else error command unknown
+	else
+		error_free_str(env, ERROR_CMD, line);//else error command unknown
 }
 
 int		count_space(char *line)
@@ -98,7 +100,7 @@ int		count_space(char *line)
 	return (space);
 }
 
-int		isroom(char *line)
+static int		isroom(char *line)
 {
 	int		i;
 
@@ -106,11 +108,11 @@ int		isroom(char *line)
 	if (line[0] == '#' || line[0] == 'L' || count_space(line) != 2)
 		return (0);
 	while(line[i] != ' ')
-		{
-			if (line[i] == '-')
-				return (0);
-			i++;
-		}
+	{
+		if (line[i] == '-')
+			return (0);
+		i++;
+	}
 	i++;
 	if (line[i] == '-' || line[i] == '+')
 		i++;

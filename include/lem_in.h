@@ -87,7 +87,7 @@ void 		free_room_map(t_lemin *env);
 */
 void		parse_input(t_lemin *env);
 void		get_comment(char *str);
-void		get_command(t_lemin *env,char *str);
+//void		get_command(t_lemin *env,char *str);
 
 /*
  * parse_ants.c
