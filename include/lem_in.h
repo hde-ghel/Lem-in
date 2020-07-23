@@ -40,6 +40,7 @@ struct	s_room
 	int						type;
 	unsigned long	key;
 	int						weight;
+	t_room				*path_next;
 	t_link				*link_list; //room_links
 	t_room				*next; //liste cree en cas de hascode les meme
 };
@@ -51,6 +52,7 @@ struct	s_link
 	int				weight;
 	int				visited;
 	int				inversed;
+	int				active;
 	t_link		*reverse;
 	t_link		*room_link_next;
 	t_link		*list_next;
@@ -113,5 +115,10 @@ t_room		*get_room_by_hash(t_lemin *env, unsigned long key, char *room);
 */
 void print_room_map(t_lemin *env);
 void print_link_list(t_lemin *env);
+
+/*
+ * find_paths.c
+*/
+void find_paths(t_lemin *env);
 
 #endif
