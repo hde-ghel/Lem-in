@@ -39,15 +39,16 @@ void		new_room(t_lemin *env, char *line) //peut etre rajouter une check savoir s
 	new->coord = save_room_coord(line);
 	new->key = hash_key(new->name);
 	env->nb_rooms++;
+	new->weight = MAX_WEIGHT;
 	if (env->start_room == 1)
 		{
 			env->start_room++;
 			env->start = new;
+			new->weight = 0;
 		}
 	else if (env->end_room == 1)
 	{
 		env->end_room++;
-		new->weight = MAX_WEIGHT;
 		env->end = new;
 	}
 	if (env->map[new->key] == NULL)

@@ -64,6 +64,7 @@ int		main(int ac, char **av)
 	if (ac != 1)
 		check_arg(&env, av, ac);
 	parse_input(&env);
+	find_paths(&env);
 	if (env.fd)
 		close(env.fd);
 	free_room_map(&env);
