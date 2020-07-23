@@ -26,3 +26,17 @@ unsigned long	hash_key(char *name)
 	}
 	return (hash % HASH_SIZE);
 }
+
+t_room		*get_room_by_hash(t_lemin *env, unsigned long key, char *room)
+{
+	t_room *tmp;
+
+	tmp = env->map[key];
+	while (tmp)
+	{
+		if (tmp->key == key && ft_strcmp(room, tmp->name) == 0)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}

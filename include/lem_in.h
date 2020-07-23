@@ -25,6 +25,7 @@
 # define	MAX_WEIGHT INT_MAX -10
 
 typedef struct s_room		t_room;
+typedef	struct s_link		t_link;
 
 typedef	struct	s_xy
 {
@@ -39,21 +40,26 @@ struct	s_room
 	int						type;
 	unsigned long	key;
 	int						weight;
-	t_room				*next;
+	t_link				*link_list; //room_links
+	t_room				*next; //liste cree en cas de hascode les meme
 };
 
-typedef	struct	s_links
+struct	s_link
 {
 	t_room		*room_a;
 	t_room		*room_b;
 	int				weight;
-}								t_links;
-
+	int				visited;
+	int				inversed;
+	t_link		*reverse;
+	t_link		*room_link_next;
+	t_link		*list_next;
+};
 
 typedef	struct	s_lemin
 {
 	t_room					*map[HASH_SIZE];
-
+	t_link					*links_map;
 
 	int							fd;
 	char						*line;
@@ -61,6 +67,7 @@ typedef	struct	s_lemin
 	int							end_room;
 	int							nb_ants;
 	unsigned long		nb_rooms;
+	unsigned long		nb_links;
 	t_room					*start;
 	t_room					*end;
 	int							log;
@@ -71,7 +78,7 @@ typedef	struct	s_lemin
 */
 void		error_msg(t_lemin *env, char *str);
 void		error_free_str(t_lemin *env, char *msg, char *str);
-void free_room_map(t_lemin *env);
+void 		free_room_map(t_lemin *env);
 
 /*
  * parsing.c
@@ -94,14 +101,17 @@ void		parse_rooms(t_lemin *env);
  * parse_links.c
 */
 void		parse_links(t_lemin *env);
+
 /*
  * Hash.c
 */
 unsigned long	hash_key(char *name);
+t_room		*get_room_by_hash(t_lemin *env, unsigned long key, char *room);
 
 /*
  * print_utils.c
 */
 void print_room_map(t_lemin *env);
+void print_link_list(t_lemin *env);
 
 #endif
