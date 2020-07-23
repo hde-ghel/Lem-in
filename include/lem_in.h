@@ -78,8 +78,8 @@ typedef	struct	s_lemin
 /*
  * error.c
 */
-void		error_msg(t_lemin *env, char *str);
-void		error_free_str(t_lemin *env, char *msg, char *str);
+void		error_msg(t_lemin *env, const char *msg);
+void		error_free_str(t_lemin *env, const char *msg, char *str);
 void 		free_room_map(t_lemin *env);
 
 /*

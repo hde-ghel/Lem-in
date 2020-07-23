@@ -12,7 +12,7 @@
 
 #include "../include/lem_in.h"
 
-void	error_msg(t_lemin *env, char *msg)
+void	error_msg(t_lemin *env, const char *msg)
 {
 	ft_putstr_fd(msg, 2);
 	if (env->fd)
@@ -20,7 +20,7 @@ void	error_msg(t_lemin *env, char *msg)
 	exit(-1);
 }
 
-void	error_free_str(t_lemin *env,char *msg, char *str)
+void	error_free_str(t_lemin *env, const char *msg, char *str)
 {
 	ft_putstr_fd(msg, 2);
 	ft_strdel(&str);
