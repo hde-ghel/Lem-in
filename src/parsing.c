@@ -23,7 +23,7 @@ void	parse_input(t_lemin *env)
 	if (isatty(env->fd))
 		error_msg(env, "No map file specified");
 	parse_ants(env);
-	printf("nb ants = %d\n\n", env->nb_ants);
+	printf("Number of ants = %d\n\n", env->nb_ants);
 	parse_rooms(env);
 	parse_links(env);
 	//print_room_map(env);

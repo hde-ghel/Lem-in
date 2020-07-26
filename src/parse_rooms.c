@@ -12,6 +12,12 @@
 
 #include "../include/lem_in.h"
 
+# define ERROR_MEM "ERROR: memory allocation failed"
+# define ERROR_START "ERROR: more than one room ##start"
+# define ERROR_END "ERROR: more than one room ##end"
+# define ERROR_READ "ERROR: reading error or no pipes given"
+# define ERROR_CMD "ERROR: command unknown"
+
 t_xy save_room_coord(char *line)
 {
 	t_xy 		coord;
@@ -33,7 +39,7 @@ void		new_room(t_lemin *env, char *line) //peut etre rajouter une check savoir s
 	t_room		*new;
 
 	if (!(new = malloc(sizeof(t_room))))
-		error_msg(env, "ERROR: memory allocation failed"); // malloc error free
+		error_msg(env, ERROR_MEM); // malloc error free
 	ft_bzero(new, sizeof(t_room));
 	new->name = ft_strsub(line, 0, strchr(line, ' ') - line); // protection
 	new->coord = save_room_coord(line);
@@ -60,23 +66,24 @@ void		new_room(t_lemin *env, char *line) //peut etre rajouter une check savoir s
 		}
 }
 
-void		get_command(t_lemin *env, char *line)
+static void		get_command(t_lemin *env, char *line)
 {
 	if (ft_strequ(line, "##start"))
 		{
 			if (env->start_room != 0)
-				error_free_str(env, "ERROR more than one room ##start", line);
+				error_free_str(env, ERROR_START, line);
 			else
 				env->start_room = 1;
 		}
 	else if (ft_strequ(line, "##end"))
 	{
 			if (env->end_room != 0)
-				error_free_str(env, "ERROR more than 1 room ##end", line);
+				error_free_str(env, ERROR_END, line);
 			else
 				env->end_room = 1;
 	}
-	//else error command unknown
+	else
+		error_free_str(env, ERROR_CMD, line);//else error command unknown
 }
 
 int		count_space(char *line)
@@ -93,7 +100,7 @@ int		count_space(char *line)
 	return (space);
 }
 
-int		isroom(char *line)
+static int		isroom(char *line)
 {
 	int		i;
 
@@ -101,11 +108,11 @@ int		isroom(char *line)
 	if (line[0] == '#' || line[0] == 'L' || count_space(line) != 2)
 		return (0);
 	while(line[i] != ' ')
-		{
-			if (line[i] == '-')
-				return (0);
-			i++;
-		}
+	{
+		if (line[i] == '-')
+			return (0);
+		i++;
+	}
 	i++;
 	if (line[i] == '-' || line[i] == '+')
 		i++;
@@ -139,5 +146,5 @@ void		parse_rooms(t_lemin *env)
 		ft_strdel(&env->line);
 	}
 	if (ret == -1 || ret == 0)
-		error_msg(env, "ERROR: reading error or no pipes given"); // strdel(line) free(rooms)
+		error_msg(env, ERROR_READ); // strdel(line) free(rooms)
 }
