@@ -52,6 +52,7 @@ void init_link(t_link *link, t_room *r_a, t_room *r_b)
 	link->room_b = r_b;
 	link->weight = 1;
 	link->visited = 1;
+	link->active = 1;
 	link->inversed = -1;
 	link->list_next = NULL;
 	link->room_link_next = NULL;
