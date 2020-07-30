@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 14:58:44 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/01/24 16:36:36 by hde-ghel         ###   ########.fr       */
+/*   Updated: 2020/07/30 15:41:13 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static	char	*ftoa(t_option *opt, long double nb)
 			return (NULL);
 		}
 		else
-			return(f_str);
+			return (f_str);
 	}
 	if (opt->precision == 0)
 	{
