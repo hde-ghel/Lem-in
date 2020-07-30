@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 19:53:51 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/01/24 16:36:38 by hde-ghel         ###   ########.fr       */
+/*   Updated: 2020/07/30 15:29:44 by alborz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char			*ull_itoa(unsigned long long n)
 	return (str);
 }
 
-char	*free_str(char *str1, char *str2)
+char			*free_str(char *str1, char *str2)
 {
 	if (str1 != NULL)
 		ft_strdel(&str1);
