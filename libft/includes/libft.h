@@ -6,23 +6,24 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 11:25:46 by hde-ghel          #+#    #+#             */
-/*   Updated: 2019/12/14 14:59:32 by hde-ghel         ###   ########.fr       */
+/*   Updated: 2020/07/30 13:56:53 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # define BUFF_SIZE_GNL 42
-#if defined(__linux__)
-	#define OPEN_MAX _SC_OPEN_MAX
-	#define intmax_t __intmax_t
-	#define uintmax_t __uintmax_t
-#endif
 
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
+#if defined(__linux__)
+# define OPEN_MAX _SC_OPEN_MAX
+# define intmax_t __intmax_t
+# define uintmax_t __uintmax_t
+endif
+
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <limits.h>
 
 typedef struct		s_list
 {
