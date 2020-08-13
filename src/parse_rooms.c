@@ -45,11 +45,13 @@ void		new_room(t_lemin *env, char *line) //peut etre rajouter une check savoir s
 			env->start_room++;
 			env->start = new;
 			new->weight = 0;
+			new->type = 1;
 		}
 	else if (env->end_room == 1)
 	{
 		env->end_room++;
 		env->end = new;
+		new->type = 2;
 	}
 	if (env->map[new->key] == NULL)
 		env->map[new->key] = new;

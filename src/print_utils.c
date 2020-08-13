@@ -66,3 +66,17 @@ void print_link_list(t_lemin *env)
     tmp = tmp->list_next;
   }
 }
+
+void  print_new_path(t_lemin *env)
+{
+  t_room *tmp;
+  
+  tmp = env->end;
+  while (tmp)
+  {
+    ft_printf("%s", tmp->name);
+    if (tmp->path_next != 0)
+      ft_printf("->");
+    tmp = tmp->path_next;
+  }
+}
