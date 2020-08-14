@@ -13,7 +13,8 @@
 #include "../include/lem_in.h"
 
 //Pas sur de recup les comment
-void		get_comment(char *str)
+
+void	get_comment(char *str)
 {
 	ft_printf("%s\n", str);
 }
