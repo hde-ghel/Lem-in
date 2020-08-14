@@ -19,12 +19,11 @@ t_link *get_link(t_lemin *env, t_room *a, t_room *b)
   link = env->links_map;
   while (link)
   {
-		//ft_printf("r_a =  %s  r_b = %s\nlr_a = %s lr_b = %s\n\n", a->name, b->name, link->room_a->name, link->room_b->name);
     if (ft_strequ(link->room_b->name, b->name) && ft_strequ(link->room_a->name, a->name))
       return (link);
     link = link->list_next;
   }
-  return (link);
+  return (NULL);
 }
 
 unsigned long	hash_key(char *name)
