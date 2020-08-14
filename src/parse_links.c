@@ -37,6 +37,7 @@ int		is_link(char *line, t_lemin *env)
     return(0);
 	r_a = ft_strsub(line, 0, strchr(line, '-') - line);
 	r_b = ft_strsub(line, strchr(line, '-') - line + 1, ft_strlen(line));
+	//A proteger
 	room_a = get_room_by_hash(env, hash_key(r_a), r_a);
 	room_b = get_room_by_hash(env, hash_key(r_b), r_b);
   ft_strdel(&r_a);
@@ -52,28 +53,29 @@ void init_link(t_link *link, t_room *r_a, t_room *r_b)
 	link->room_b = r_b;
 	link->weight = 1;
 	link->visited = 1;
-	link->active = 1;
 	link->inversed = -1;
-	link->list_next = NULL;
-	link->room_link_next = NULL;
-}
-
-void add_link_to_struct(t_lemin *env, t_link *link, t_room *r_a, t_room *r_b)
-{
-  init_link(link, r_a, r_b);
-  //ajout a la liste des liens de la room
+	//ajout a la liste des liens de la room
   if (!(r_a->link_list))
-	{
 		r_a->link_list = link;
-	}
 	else
 	{
 		link->room_link_next = r_a->link_list;
 		r_a->link_list = link;
 	}
-    //ajout a la liste de liens global
+}
+
+void add_link_to_struct(t_lemin *env, t_link *link, t_room *r_a, t_room *r_b)
+{
+	//check si end et start sont lie si oui, il faudra rajouter le path
+	if ((link->room_a->type == 1 && link->room_b->type == 2) ||
+		(link->room_b->type == 1 && link->room_a->type == 2))
+			env->end_start_link = 1;
+  //ajout a la liste de liens global
   if (env->links_map == NULL)
+	{
 		env->links_map = link;
+		link->list_next = NULL;
+	}
 	else
 	{
 		link->list_next = env->links_map;
@@ -89,7 +91,7 @@ int  new_link(t_lemin *env, char *line)
   	t_room			*r_b;
     char        *tmp;
 
-    tmp = ft_strsub(line, 0, strchr(line, '-') - line);
+    tmp = ft_strsub(line, 0, strchr(line, '-') - line);//A proteger
     r_a = get_room_by_hash(env, hash_key(tmp), tmp);
     ft_strdel(&tmp);
     tmp = ft_strsub(line, strchr(line, '-') - line + 1, ft_strlen(line));
@@ -100,9 +102,10 @@ int  new_link(t_lemin *env, char *line)
   		return (-1);
     newlink->reverse = reverselink;
     reverselink->reverse = newlink;
+		init_link(newlink, r_a, r_b);
+		init_link(reverselink, r_b, r_a);
     add_link_to_struct(env, newlink, r_a, r_b);
     add_link_to_struct(env, reverselink, r_b, r_a);
-		r_a = get_room_by_hash(env, hash_key(r_a->name), r_a->name);
   	env->nb_links++;
   	return (0);
 }

@@ -61,10 +61,11 @@ int		main(int ac, char **av)
 	t_lemin		env;
 
 	ft_bzero(&env, sizeof(env));
+	env.nb_lines = INT_MAX;
 	if (ac != 1)
 		check_arg(&env, ac, av);
 	parse_input(&env);
-	find_paths(&env);
+	suurballe(&env);
 	if (env.fd)
 		close(env.fd);
 	free_room_map(&env);
