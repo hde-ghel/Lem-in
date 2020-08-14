@@ -82,7 +82,7 @@ struct			s_lemin
 	t_room					*start;
 	t_room					*end;
 	int							log;
-}				t_lemin;
+};
 
 /*
 ** error.c
