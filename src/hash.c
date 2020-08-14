@@ -19,7 +19,7 @@ t_link *get_link(t_lemin *env, t_room *a, t_room *b)
   link = env->links_map;
   while (link)
   {
-    if (ft_strequ(link->room_b->name, b->name) && ft_strequ(link->room_a->name, a->name))
+    if (link->room_b && link->room_a && ft_strequ(link->room_b->name, b->name) && ft_strequ(link->room_a->name, a->name))
       return (link);
     link = link->list_next;
   }

@@ -67,5 +67,6 @@ int		main(int ac, char **av)
 	if (env.fd)
 		close(env.fd);
 	free_room_map(&env);
+	free_links(&env);
 	return (0);
 }

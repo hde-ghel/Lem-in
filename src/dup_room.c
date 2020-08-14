@@ -19,6 +19,8 @@ void    change_room_in_links(t_room *room)
   link = room->link_list;
   while(link)
   {
+    if (!link->room_a->out)
+      ft_printf("OUT = NUULL\n");
     link->room_a = link->room_a->out;
     link = link->room_link_next;
   }

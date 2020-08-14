@@ -62,7 +62,14 @@ void print_link_list(t_lemin *env)
   tmp = env->links_map;
   while (tmp)
   {
-    ft_printf("link\nroom a = %s\nroom_b = %s\nweight = %d\n\n", tmp->room_a->name, tmp->room_b->name, tmp->weight);
+    ft_putstr("roma = ");
+    if (tmp->room_a)
+      ft_putstr(tmp->room_a->name);
+    ft_putstr(" roomb = ");
+    //if (tmp->room_b)
+      ft_putstr(tmp->room_b->name);
+    ft_putstr("\n");
+    //ft_printf("link room a = %s room_b = %s\n", tmp->room_a->name, tmp->room_b->name);
     tmp = tmp->list_next;
   }
 }
@@ -70,7 +77,7 @@ void print_link_list(t_lemin *env)
 void  print_new_path(t_lemin *env)
 {
   t_room *tmp;
-  
+
   tmp = env->end;
   while (tmp)
   {
@@ -79,4 +86,5 @@ void  print_new_path(t_lemin *env)
       ft_printf("->");
     tmp = tmp->path_next;
   }
+  ft_putstr("\n");
 }

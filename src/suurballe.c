@@ -139,8 +139,7 @@ void    suurballe(t_lemin *env)
   bellman_ford(env);
   if (add_new_path(env) == -1)//check end_start_link
     error_msg(env, "ERROR : No possible path");
-	print_new_path(env);
-	ft_printf("\n");
+//print_new_path(env);
   check_path_weight(env);
   cost = INT_MAX;
   new = path_cost(env);
@@ -150,10 +149,11 @@ void    suurballe(t_lemin *env)
 	{
 		duplicate_path(env);
     inverse_links(env);
+		//print_link_list(env);
     reset(env);//reset le poid des room pour bellman_ford
     bellman_ford(env);
-		print_new_path(env);
-		ft_printf("\n");
+
+    //print_new_path(env);
 		//if (negative_cycle(map, arg) == 1)
 		//	break ;
 		if (check_path_weight(env) == -1)
@@ -165,5 +165,4 @@ void    suurballe(t_lemin *env)
 			break;
 	}
 	//solve map
-  free_links(env);
 }
