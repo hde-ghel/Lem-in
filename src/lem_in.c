@@ -12,19 +12,17 @@
 
 #include "../include/lem_in.h"
 
-# define USAGE "USAGE:\n./lem_in < \"map-file\" or ./lem_in -m \"map-file\"\n\
-		\nOPTIONS:\n-h : print usage (only print usage)\
-		\n-i : print input\n-m : enter a file-name\n"
-
-static void		print_usage(t_lemin *env)
+static void	print_usage(t_lemin *env)
 {
-	ft_printf(USAGE);
+	ft_printf("USAGE:\n./lem_in < \"map-file\" or ./lem_in -m \"map-file\"\
+		\n\nOPTIONS:\n-h : print usage (only print usage)\
+		\n-i : print input\n-m : enter a file-name\n");
 	if (env->fd)
 		close(env->fd);
 	exit(0);
 }
 
-static void		open_map_file(t_lemin *env, int *i, char **av)
+static void	open_map_file(t_lemin *env, int *i, char **av)
 {
 	(*i)++;
 	if (!isatty(env->fd) || env->fd)
@@ -36,7 +34,7 @@ static void		open_map_file(t_lemin *env, int *i, char **av)
 
 static void	check_arg(t_lemin *env, int ac, char **av)
 {
-	int		i;
+	int	i;
 
 	i = 1;
 	while (i < ac)
@@ -58,7 +56,7 @@ static void	check_arg(t_lemin *env, int ac, char **av)
 
 int		main(int ac, char **av)
 {
-	t_lemin		env;
+	t_lemin	env;
 
 	ft_bzero(&env, sizeof(env));
 	env.nb_lines = INT_MAX;

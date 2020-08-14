@@ -113,14 +113,13 @@ void			parse_rooms(t_lemin *env);
 */
 void			parse_links(t_lemin *env);
 void			add_link_to_struct(t_lemin *env, t_link *link, \
-				t_room *r_a, t_room *r_b);
+			t_room *r_a, t_room *r_b);
 
 /*
 ** Hash.c
 */
 unsigned long		hash_key(char *name);
-t_room			*get_room_by_hash(t_lemin *env, unsigned long key, \
-				char *room);
+t_room			*get_room_by_hash(t_lemin *env, unsigned long key, char *room);
 t_link			*get_link(t_lemin *env, t_room *a, t_room *b);
 
 /*
