@@ -98,16 +98,16 @@ void revert_selection(t_lemin *env)
 	link = env->links_map;
 	while (link)
 	{
-		if (link->selected)
+		if (link->selected > 1)
 		{
 			tmp = link->room_a;
 			link->room_a = link->room_b;
 			link->room_b = tmp;
 			link->inversed = 0;
-			if (link->duplicated > 1)
+			if (link->duplicated > 0)
 				link->weight = 0;
 			else
-				link->weight = 0;
+				link->weight = 1;
 			link->selected = 0;
 		}
 		link = link->list_next;
@@ -141,19 +141,19 @@ void    suurballe(t_lemin *env)
     error_msg(env, "ERROR : No possible path");
 //print_new_path(env);
   check_path_weight(env);
-  cost = INT_MAX;
+  cost = MAX_WEIGHT;
   new = path_cost(env);
   env->nb_paths++;
-  //ft_printf("total weight = %d\ncost_path = %f\n", env->total_weight, new);
-  while ((int)new < (int)cost)
+	print_new_path(env);
+	ft_printf("total weight = %d\nnew = %f\nold = %f\n\n", env->total_weight, new, cost);
+	while ((int)new < (int)cost)
 	{
+
 		duplicate_path(env);
     inverse_links(env);
 		//print_link_list(env);
     reset(env);//reset le poid des room pour bellman_ford
     bellman_ford(env);
-
-    //print_new_path(env);
 		//if (negative_cycle(map, arg) == 1)
 		//	break ;
 		if (check_path_weight(env) == -1)
@@ -163,6 +163,8 @@ void    suurballe(t_lemin *env)
 		env->nb_paths++;
 		if (save_and_revert(env, new, cost) == -1)
 			break;
+		print_new_path(env);
+		ft_printf("total weight = %d\nnew = %f\nold = %f\n\n", env->total_weight, new, cost);
 	}
 	//solve map
 }

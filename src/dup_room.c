@@ -19,15 +19,12 @@ void    change_room_in_links(t_room *room)
   link = room->link_list;
   while(link)
   {
-    if (!link->room_a->out)
-      ft_printf("OUT = NUULL\n");
-    link->room_a = link->room_a->out;
+    link->room_a = room->out;
     link = link->room_link_next;
   }
 }
 
 void	init_room_out(t_lemin *env, t_room *room, t_room *out)
-//(t_data_map *map, t_node *room, t_node *out)
 {
 	out->duplicated = 2;
 	out->key = hash_key(out->name);
@@ -77,7 +74,7 @@ void	dup_room(t_lemin *env, t_room *room)
 	create_out_link(env, room, out);
 }
 
-void		duplicate_path(t_lemin *env)//(t_data_map *map, t_lemin *arg, t_node *room)
+void		duplicate_path(t_lemin *env)
 {
   t_room *room;
 

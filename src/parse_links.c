@@ -94,12 +94,12 @@ int  new_link(t_lemin *env, char *line)
     tmp = ft_strsub(line, 0, strchr(line, '-') - line);//A proteger
     r_a = get_room_by_hash(env, hash_key(tmp), tmp);
     ft_strdel(&tmp);
-    tmp = ft_strsub(line, strchr(line, '-') - line + 1, ft_strlen(line));
+    tmp = ft_strsub(line, strchr(line, '-') - line + 1, ft_strlen(line));//prot
   	r_b = get_room_by_hash(env, hash_key(tmp), tmp);
 		ft_strdel(&tmp);
   	if (!(r_a) || !(r_b) || !(newlink = ft_memalloc(sizeof(t_link)))
   		|| !(reverselink = ft_memalloc(sizeof(t_link))))
-  		return (-1);
+  		return (-1);// protection
     newlink->reverse = reverselink;
     reverselink->reverse = newlink;
 		init_link(newlink, r_a, r_b);

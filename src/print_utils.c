@@ -57,7 +57,7 @@ void print_room_map(t_lemin *env)
 
 void print_link_list(t_lemin *env)
 {
-  t_link  *tmp;
+  t_link  *tmp;  
 
   tmp = env->links_map;
   while (tmp)

@@ -19,7 +19,9 @@ t_link *get_link(t_lemin *env, t_room *a, t_room *b)
   link = env->links_map;
   while (link)
   {
-    if (link->room_b && link->room_a && ft_strequ(link->room_b->name, b->name) && ft_strequ(link->room_a->name, a->name))
+    if (ft_strequ(link->room_b->name, b->name) &&
+      ft_strequ(link->room_a->name, a->name) &&
+      link->room_a->duplicated == a->duplicated && link->room_b->duplicated == b->duplicated)
       return (link);
     link = link->list_next;
   }
