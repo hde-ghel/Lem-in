@@ -118,18 +118,18 @@ void		parse_links(t_lemin *env)
 	if (!env->line || is_link(env->line, env) != 1)
 	{
 		ft_strdel(&env->line);
-		error_msg(env, "ERROR: Wrong link format");
+		error_msg(env, "ERROR: Wrong room format");
 	}
-	//new_link(env->line);
+	new_link(env, env->line);
 	ft_strdel(&env->line);
 	while ((ret = get_next_line(env->fd, &env->line)) > 0)
 	{
-		if (env->line[0] == '#' && ft_strlen(env->line) > 1 && env->line[1] != '#')
+		if (env->line[0] == '#' && ft_strlen(env->line) > 1 && env->line[1] != '#')//only test #
 			get_comment(env->line);
 		else 	if (is_link(env->line, env) == 1)
 			new_link(env, env->line);
 		else
-			error_msg(env, "ERROR: Wrong link format");
+			error_msg(env, "ERROR: Wrong link format");//break
 		ft_strdel(&env->line);
 	}
 	if (ret == -1)

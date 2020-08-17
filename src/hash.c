@@ -16,6 +16,8 @@ t_link *get_link(t_lemin *env, t_room *a, t_room *b)
 {
   t_link  *link;
 
+  if (!a || !b)
+    return (NULL);
   link = env->links_map;
   while (link)
   {

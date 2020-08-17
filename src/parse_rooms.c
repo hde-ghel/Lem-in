@@ -78,7 +78,7 @@ void		get_command(t_lemin *env, char *line)
 			else
 				env->end_room = 1;
 	}
-	//else error command unknown
+	//else error command unknown or skip
 }
 
 int		count_space(char *line)

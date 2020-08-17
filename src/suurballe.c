@@ -139,7 +139,6 @@ void    suurballe(t_lemin *env)
   bellman_ford(env);
   if (add_new_path(env) == -1)//check end_start_link
     error_msg(env, "ERROR : No possible path");
-//print_new_path(env);
   check_path_weight(env);
   cost = MAX_WEIGHT;
   new = path_cost(env);
