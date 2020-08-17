@@ -64,6 +64,7 @@ int		main(int ac, char **av)
 		check_arg(&env, av, ac);
 	parse_input(&env);
 	suurballe(&env);
+	solve_map(&env);
 	if (env.fd)
 		close(env.fd);
 	free_room_map(&env);

@@ -39,6 +39,7 @@ void	init_room_out(t_lemin *env, t_room *room, t_room *out)
 		env->map[out->key] = out;
 	}
 	change_room_in_links(room);
+  out->link_list = room->link_list;
 }
 
 void  create_out_link(t_lemin *env, t_room *room, t_room *out)
@@ -56,6 +57,7 @@ void  create_out_link(t_lemin *env, t_room *room, t_room *out)
 	link->duplicated = 1;
 	link->selected = 1;
 	link->room_b->path_next = link->room_a;
+  link->room_a->link_list = link;
 	add_link_to_struct(env, link, room, out);
 }
 

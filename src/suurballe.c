@@ -136,7 +136,7 @@ void    suurballe(t_lemin *env)
   double   new;
 
   //check start et end connected dans checklinks ??
-  bellman_ford(env);
+	  bellman_ford(env);
   if (add_new_path(env) == -1)//check end_start_link
     error_msg(env, "ERROR : No possible path");
   check_path_weight(env);
@@ -165,5 +165,6 @@ void    suurballe(t_lemin *env)
 		print_new_path(env);
 		ft_printf("total weight = %d\nnew = %f\nold = %f\n\n", env->total_weight, new, cost);
 	}
+	//print_room_map(env);
 	//solve map
 }

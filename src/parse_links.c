@@ -129,7 +129,7 @@ void		parse_links(t_lemin *env)
 		else 	if (is_link(env->line, env) == 1)
 			new_link(env, env->line);
 		else
-			error_msg(env, "ERROR: Wrong link format");//break
+			error_msg(env, "ERROR: Wrong link format");//break au lieu de error
 		ft_strdel(&env->line);
 	}
 	if (ret == -1)

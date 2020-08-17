@@ -152,4 +152,8 @@ void free_links(t_lemin *env);
  * dup_room.c
 */
 void		duplicate_path(t_lemin *env);
+/*
+ * solve_suurballe.c
+*/
+void solve_map(t_lemin *env);
 #endif

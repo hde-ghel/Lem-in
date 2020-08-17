@@ -26,8 +26,8 @@ void print_room_map(t_lemin *env)
     //ft_printf("nananana");
     if (env->map[i] != NULL)
     {
-      ft_printf("Room:\nName : %s\nx = %d  y = %d\nkey = %d\nweight = %d\nroom links:\n", env->map[i]->name,\
-          env->map[i]->coord.x, env->map[i]->coord.y, env->map[i]->key, env->map[i]->weight);
+      ft_printf("Room:\nName : %s\nx = %d  y = %d\nkey = %d\nweight = %d\nduplicated = %d\nroom links:\n", env->map[i]->name,\
+          env->map[i]->coord.x, env->map[i]->coord.y, env->map[i]->key, env->map[i]->weight, env->map[i]->duplicated);
       tmp2 = env->map[i]->link_list;
       while(tmp2 != NULL)
       {
@@ -39,8 +39,8 @@ void print_room_map(t_lemin *env)
       while (tmp != NULL)
       {
         ft_printf("SAME HASH\n");
-        ft_printf("Room:\nName : %s\nx = %d  y = %d\nkey = %d\nweight = %d\nroom links:\n", env->map[i]->name,\
-            env->map[i]->coord.x, env->map[i]->coord.y, env->map[i]->key, env->map[i]->weight);
+        ft_printf("Room:\nName : %s\nx = %d  y = %d\nkey = %d\nweight = %d\nduplicated = %d\nroom links:\n", tmp->name,\
+            tmp->coord.x, tmp->coord.y, tmp->key, tmp->weight, tmp->duplicated);
         tmp2 = tmp->link_list;
         while(tmp2 != NULL)
         {
@@ -57,7 +57,7 @@ void print_room_map(t_lemin *env)
 
 void print_link_list(t_lemin *env)
 {
-  t_link  *tmp;  
+  t_link  *tmp;
 
   tmp = env->links_map;
   while (tmp)
