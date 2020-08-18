@@ -143,8 +143,8 @@ void    suurballe(t_lemin *env)
   cost = MAX_WEIGHT;
   new = path_cost(env);
   env->nb_paths++;
-	print_new_path(env);
-	ft_printf("total weight = %d\nnew = %f\nold = %f\n\n", env->total_weight, new, cost);
+	//print_new_path(env);
+	//ft_printf("total weight = %d\nnew = %f\nold = %f\n\n", env->total_weight, new, cost);
 	while ((int)new < (int)cost)
 	{
 
@@ -162,9 +162,7 @@ void    suurballe(t_lemin *env)
 		env->nb_paths++;
 		if (save_and_revert(env, new, cost) == -1)
 			break;
-		print_new_path(env);
-		ft_printf("total weight = %d\nnew = %f\nold = %f\n\n", env->total_weight, new, cost);
+		//print_new_path(env);
+		//ft_printf("total weight = %d\nnew = %f\nold = %f\n\n", env->total_weight, new, cost);
 	}
-	//print_room_map(env);
-	//solve map
 }

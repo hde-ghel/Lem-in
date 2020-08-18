@@ -65,8 +65,8 @@ struct	s_link
 
 typedef	struct	s_lemin
 {
-	t_room					*map[HASH_SIZE];
-	t_link					*links_map;
+	t_room					*map[HASH_SIZE]; //tab of all room
+	t_link					*links_map; //list of all links
   int							end_start_link;
 	int							fd;
 	char						*line;
@@ -75,7 +75,8 @@ typedef	struct	s_lemin
 	int							nb_ants;
 	unsigned long		nb_rooms;
 	unsigned long		nb_links;
-	unsigned long		nb_paths;
+	unsigned long		nb_paths;//nuber of path found in solve_suurballe
+	int							max_final_path;
 	int							total_weight;
 	double				  nb_lines;
 	t_room					*start;
