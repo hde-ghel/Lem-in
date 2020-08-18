@@ -12,54 +12,44 @@
 
 #include "../include/lem_in.h"
 
-int		check_path_used(t_lemin *env)//(arg, t_data_map **map, t_linkstab *links, int way)
-{//
-	t_room	*tmp;
-	int		i;
+void 	save_path(t_lemin *env, t_link *link, int nb_path)
+{
 
-	i = 0;
-	tmp = switch_room(links, arg);
-	while (i < way && (*map)->way[i]->path_list[0] != NULL)
-	{
-		if (ft_strcmp((*map)->way[i]->path_list[0], tmp->room) == 0)
-			return (-1);
-		i++;
-	}
-	return (1);
 }
 
 void find_final_paths(t_lemin *env)
 //find_nbr_way(t_data_map **map, t_lemin *arg, t_linkstab *links, int f) int nb_paths
 {
-  int path;
-  t_link *links;
+  int nb_path;
+  t_link *link;
 
-	path = 0;
-  links = env->links_map;
-	while (links)
+	nb_path = 0;
+  link = env->links_map;
+	while (link)
 	{
-		if (links->selected == 1)
+		if (link->selected == 1)
 		{
-			if (env->start->name == links->room_a->name
-				|| env->start->name == links->room_b->name)
+			if (env->start->name == link->room_a->name
+				|| env->start->name == link->room_b->name)
 			{
-				if (check_path_used(env) == 1)//(arg, map, links, path) == 0)
+				if (check_link_used(env, link, nb_path) == 1)//(arg, map, links, path) == 0)
 				{
-					//if (stock_path(map, arg, links, path) == -1)
-					//	return (-1);
-					path++;
+					save_path(env, link, nb_path);//(map, arg, links, path);
+					nb_path++;
 				}
-				if (path == env->max_final_path)
+				if (nb_path == env->max_final_path)
 					return ;
 			}
 		}
-		links = links->list_next;
+		link = link->list_next;
 	}
 }
 
 void solve_map(t_lemin *env)
 {
   env->max_final_path = env->nb_paths;
+	if (!(env->path_tab = ft_memalloc(sizeof(t_path *) * env->nb_paths)))
+		error_msg(env, "ERROR : malloc");//free map + link
 	find_final_paths(env);//(map, arg, (*map)->links, path)
 	//		return (-1);
 }
