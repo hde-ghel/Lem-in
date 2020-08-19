@@ -172,5 +172,7 @@ void 			solve_map(t_lemin *env);
  * find_final_paths.c
 */
 t_room 		*get_right_room(t_lemin *env, t_link *link);
-void 			find_final_paths(t_lemin *env);
+t_room 		*get_next_room(t_lemin *env, t_room *tmp, t_path *new_path);
+int 			check_next_room(t_lemin *env, t_path *new_path, t_room *room);
+int		check_start_link_used(t_lemin *env, t_link *link, int nb_path);
 #endif

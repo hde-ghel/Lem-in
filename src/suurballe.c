@@ -135,7 +135,6 @@ void    suurballe(t_lemin *env)
   double   cost;
   double   new;
 
-  //check start et end connected dans checklinks ??
 	  bellman_ford(env);
   if (add_new_path(env) == -1)//check end_start_link
     error_msg(env, "ERROR : No possible path");
