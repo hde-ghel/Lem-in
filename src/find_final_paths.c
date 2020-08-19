@@ -23,7 +23,7 @@ t_room *get_right_room(t_lemin *env, t_link *link)
 	return (room);
 }
 
-int		check_link_used(t_lemin *env, t_link *link, int nb_path)//(arg, t_data_map **map, t_linkstab *links, int way)
+int		check_start_link_used(t_lemin *env, t_link *link, int nb_path)//(arg, t_data_map **map, t_linkstab *links, int way)
 {//
 	t_room	*tmp;
 	int		i;
@@ -39,6 +39,22 @@ int		check_link_used(t_lemin *env, t_link *link, int nb_path)//(arg, t_data_map 
 	return (1);
 }
 
+int check_next_room(t_lemin *env, t_path *new_path, t_room *room)
+{
+	int i;
+
+	i = 0;
+	if (ft_strcmp(room->name, env->start->name) == 0)
+		return (1);
+	while (new_path->room[i] != NULL)
+	{
+		if (ft_strcmp(new_path->room[i], room->name) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 t_room 	*get_next_room(t_lemin *env, t_room *tmp, t_path *new_path)
 {
 	t_link *link;
@@ -51,10 +67,10 @@ t_room 	*get_next_room(t_lemin *env, t_room *tmp, t_path *new_path)
 		if (link->selected == 1)
 		{
 			if ((ft_strcmp(link->room_a->name, tmp->name) == 0)
-				&& check_follow(new, arg, link->room_b) == 0)
+				&& check_next_room(env, new_path, link->room_b) == 0)
 				return (link->room_b);
 			if ((ft_strcmp(link->room_b->name, tmp->name) == 0)
-				&& (check_follow(new, arg, link->room_a) == 0))
+				&& (check_next_room(env, new_path, link->room_a) == 0))
 				return (link->room_a);
 			}
 			link = link->list_next;
@@ -100,7 +116,7 @@ void find_final_paths(t_lemin *env)
 			if (env->start->name == link->room_a->name
 				|| env->start->name == link->room_b->name)
 			{
-				if (check_link_used(env, link, nb_path) == 1)//(arg, map, links, path) == 0)
+				if (check_start_link_used(env, link, nb_path) == 1)//(arg, map, links, path) == 0)
 				{
 					save_path(env, link, nb_path);//(map, arg, links, path);
 					nb_path++;

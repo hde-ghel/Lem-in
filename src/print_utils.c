@@ -88,3 +88,24 @@ void  print_new_path(t_lemin *env)
   }
   ft_putstr("\n");
 }
+
+void print_final_paths(t_lemin *env)
+{
+  int		i;
+  int   j;
+
+	i = 0;
+  j = 0;
+  ft_printf("nb_path = %d\n", env->max_final_path);
+	while(i < env->max_final_path)
+	{
+		if (env->path_tab[i])
+		{
+      j = 0;
+      while (env->path_tab[i]->room[j])
+        ft_printf("%s->", env->path_tab[i]->room[j++]);
+		}
+    ft_printf("\n");
+		i++;
+	}
+}

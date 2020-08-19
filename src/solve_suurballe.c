@@ -18,5 +18,6 @@ void solve_map(t_lemin *env)
 	if (!(env->path_tab = ft_memalloc(sizeof(t_path *) * env->nb_paths)))
 		error_msg(env, "ERROR : malloc");//free map + link
 	find_final_paths(env);//(map, arg, (*map)->links, path)
+  print_final_paths(env);
 	//		return (-1);
 }

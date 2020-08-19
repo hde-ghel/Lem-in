@@ -135,6 +135,7 @@ t_link 				*get_link(t_lemin *env, t_room *a, t_room *b);
 void 					print_room_map(t_lemin *env);
 void 					print_link_list(t_lemin *env);
 void  				print_new_path(t_lemin *env);
+void 					print_final_paths(t_lemin *env);
 
 /*
  * suurballe.c

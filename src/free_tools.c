@@ -60,7 +60,12 @@ void free_path_list(t_lemin *env)
 	while(i < env->max_final_path)
 	{
 		if (env->path_tab[i])
+		{
+			free(env->path_tab[i]->room);
+			env->path_tab[i]->room = NULL;
 			free(env->path_tab[i]);
+			env->path_tab[i] = NULL;
+		}
 		i++;
 	}
 	free(env->path_tab);
