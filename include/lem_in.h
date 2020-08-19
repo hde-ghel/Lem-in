@@ -80,6 +80,7 @@ typedef	struct	s_lemin
 	unsigned long		nb_paths;//nuber of path found in solve_suurballe
 	int							max_final_path;
 	int							total_weight;
+	int							final_path_weight;
 	double				  nb_lines;
 	t_room					*start;
 	t_room					*end;
@@ -167,8 +168,8 @@ void			duplicate_path(t_lemin *env);
 */
 void 			solve_map(t_lemin *env);
 /*
- * solve_suurballe_tools.c
+ * find_final_paths.c
 */
 t_room 		*get_right_room(t_lemin *env, t_link *link);
-int				check_link_used(t_lemin *env, t_link *link, int nb_path);
+void 			find_final_paths(t_lemin *env);
 #endif

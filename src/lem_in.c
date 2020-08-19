@@ -63,6 +63,7 @@ int		main(int ac, char **av)
 	if (ac != 1)
 		check_arg(&env, av, ac);
 	parse_input(&env);
+	//check_connection_end_start()
 	suurballe(&env);
 	solve_map(&env);
 	if (env.fd)
