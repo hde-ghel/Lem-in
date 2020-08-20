@@ -27,6 +27,7 @@
 typedef struct s_room		t_room;
 typedef	struct s_link		t_link;
 typedef struct s_path		t_path;
+typedef struct s_ants		t_ants;
 
 typedef	struct	s_xy
 {
@@ -69,6 +70,7 @@ typedef	struct	s_lemin
 	t_room					*map[HASH_SIZE]; //tab of all room
 	t_link					*links_map; //list of all links
 	t_path					**path_tab;//tableau de path finaux
+	t_ants					**ants;
   int							end_start_link;
 	int							fd;
 	char						*line;
@@ -93,10 +95,20 @@ struct s_path
 	int					weight;
 	char 				**room;
 };
+
+struct 	s_ants
+{
+	int			ant_id;
+	int			path_id;
+	int			status;
+	char    *actual_room;
+};
+
+
 /*
  * error.c
 */
-void		error_msg(t_lemin *env, char *str);
+void		error_msg(t_lemin *env, char *str, int free);
 void		error_free_str(t_lemin *env, char *msg, char *str);
 
 /*

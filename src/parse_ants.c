@@ -44,7 +44,7 @@ void		parse_ants(t_lemin *env)
 				error_free_str(env, "ERROR numbers of ants is negative or null\n", line);
 			break;
 		}
-		else if (line[0] == '#' && line[1] && line[1] != '#')
+		else if (line[0] == '#')//just check if line start with #
 			get_comment(line);
 		else
 			error_free_str(env, "ERROR wrong format for ants number\n", line);
@@ -52,5 +52,5 @@ void		parse_ants(t_lemin *env)
 	}
 	ft_strdel(&line);
 	if (ret == -1 || ret == 0)
-		error_msg(env, "ERROR: file error or empty file\n");
+		error_msg(env, "ERROR: file error or empty file\n", 0);
 }

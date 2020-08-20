@@ -12,8 +12,21 @@
 
 #include "../include/lem_in.h"
 
-void	error_msg(t_lemin *env, char *msg)
+void	error_msg(t_lemin *env, char *msg, int free)
 {
+	if (free == 1)
+		free_room_map(env);
+	if (free == 2)
+	{
+		free_room_map(env);
+		free_links(env);
+	}
+	if (free == 3)
+	{
+		free_room_map(env);
+		free_links(env);
+		free_path_list(env);
+	}
 	ft_putstr_fd(msg, 2);
 	if (env->fd)
 		close(env->fd);

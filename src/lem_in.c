@@ -12,6 +12,17 @@
 
 #include "../include/lem_in.h"
 
+void print_one_link_solution(t_lemin *env)
+{
+	int		i;
+
+	i = 0;
+	ft_printf("[LINE]01: ");
+		while (i++ < env->nb_ants)
+			ft_printf("L%i-%s ", i, env->end->name);
+		ft_printf("\n");
+}
+
 void		print_usage(t_lemin *env)
 {
 	ft_putendl("usage:\n./lem_in < \"map-file\" or ./lem_in -m \"map-file\"\n\
@@ -26,9 +37,9 @@ void		open_map_file(t_lemin *env, int *i, char **av)
 {
 	(*i)++;
 	if (!isatty(env->fd) || env->fd)
-		error_msg(env, "Only one map can be specified");
+		error_msg(env, "Only one map can be specified",0);
 	if ((env->fd = open(av[*i], O_RDONLY)) == -1)
-		error_msg(env, "ERROR : map_file cannot be opened");
+		error_msg(env, "ERROR : map_file cannot be opened", 0);
 	(*i)++;
 }
 
@@ -63,13 +74,18 @@ int		main(int ac, char **av)
 	if (ac != 1)
 		check_arg(&env, av, ac);
 	parse_input(&env);
-	//check_connection_end_start()
-	suurballe(&env);
-	solve_map(&env);
+	if (env.end_start_link == 1)
+		print_one_link_solution(&env);
+	else
+  {
+		suurballe(&env);
+		solve_map(&env);
+		//print_solution(&env);
+		free_path_list(&env);
+  }
 	if (env.fd)
 		close(env.fd);
 	free_room_map(&env);
 	free_links(&env);
-	free_path_list(&env);
 	return (0);
 }

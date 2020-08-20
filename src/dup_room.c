@@ -50,7 +50,7 @@ void  create_out_link(t_lemin *env, t_room *room, t_room *out)
 	{
 		ft_strdel(&out->name);
 		free(out);
-	  error_msg(env, "ERROR : malloc");
+	  error_msg(env, "ERROR : malloc", 2);
 	}
 	link->room_a = room;
 	link->room_b = out;
@@ -66,11 +66,11 @@ void	dup_room(t_lemin *env, t_room *room)
 	t_room *out;
 
 	if (!(out = ft_memalloc(sizeof(t_room))))
-    error_msg(env, "ERROR : malloc");//free
+    error_msg(env, "ERROR : malloc", 2);
 	if (!(out->name = ft_strdup(room->name)))
 	{
 		free(out);
-		error_msg(env, "ERROR : malloc");//free
+		error_msg(env, "ERROR : malloc", 2);//free
 	}
 	init_room_out(env, room, out);
 	create_out_link(env, room, out);
