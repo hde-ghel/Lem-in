@@ -6,21 +6,21 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:01:39 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/21 17:34:23 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:56:36 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
 
-void print_one_link_solution(t_lemin *env)
+void		print_one_link_solution(t_lemin *env)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	ft_printf("[LINE]01: ");
-		while (i++ < env->nb_ants)
-			ft_printf("L%i-%s ", i, env->end->name);
-		ft_printf("\n");
+	while (i++ < env->nb_ants)
+		ft_printf("L%i-%s ", i, env->end->name);
+	ft_printf("\n");
 }
 
 void		print_usage(t_lemin *env)
@@ -37,7 +37,7 @@ static void	open_map_file(t_lemin *env, int *i, char **av)
 {
 	(*i)++;
 	if (!isatty(env->fd) || env->fd)
-		error_msg(env, "Only one map can be specified",0);
+		error_msg(env, "Only one map can be specified", 0);
 	if ((env->fd = open(av[*i], O_RDONLY)) == -1)
 		error_msg(env, "ERROR : map_file cannot be opened", 0);
 	(*i)++;
@@ -77,12 +77,12 @@ int		main(int ac, char **av)
 	if (env.end_start_link == 1)
 		print_one_link_solution(&env);
 	else
-  {
+	{
 		suurballe(&env);
 		solve_map(&env);
 		//print_solution(&env);
 		free_path_list(&env);
-  }
+	}
 	if (env.fd)
 		close(env.fd);
 	free_room_map(&env);
