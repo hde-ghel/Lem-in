@@ -92,15 +92,7 @@ struct s_path
 {
 	int					path_nb;
 	int					weight;
-	char 				**room;
-};
-
-struct 	s_ants
-{
-	int			ant_id;
-	int			path_id;
-	int			status;
-	char    *actual_room;
+	t_room 				**room;
 };
 
 
