@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:54:59 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/21 17:33:28 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:40:30 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	change_room_in_links(t_room *room)
 	t_link	*link;
 
 	link = room->link_list;
-	while(link)
+	while (link)
 	{
 		link->room_a = room->out;
 		link = link->room_link_next;
@@ -39,7 +39,7 @@ void	init_room_out(t_lemin *env, t_room *room, t_room *out)
 		env->map[out->key] = out;
 	}
 	change_room_in_links(room);
-  out->link_list = room->link_list;
+	out->link_list = room->link_list;
 }
 
 void	create_out_link(t_lemin *env, t_room *room, t_room *out)
@@ -76,7 +76,7 @@ void	dup_room(t_lemin *env, t_room *room)
 	create_out_link(env, room, out);
 }
 
-void		duplicate_path(t_lemin *env)
+void	duplicate_path(t_lemin *env)
 {
 	t_room *room;
 
