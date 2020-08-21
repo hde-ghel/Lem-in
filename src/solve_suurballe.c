@@ -24,17 +24,17 @@ void 	save_path(t_lemin *env, t_link *link, int nb_path)
 		return ;//potentiellement inutile
 	if (!(new_path = ft_memalloc(sizeof(t_path))))
 		error_msg(env, "ERROR : malloc", 3);
-	if (!(new_path->room = ft_memalloc(sizeof(char *) * 500)))
+	if (!(new_path->room = ft_memalloc(sizeof(t_room *) * 500)))
 	{
 		free(new_path);
 		error_msg(env, "ERROR : malloc", 3);
   }
 	while ((tmp = get_next_room(env, tmp, new_path)) != env->end)
-		new_path->room[i++] = tmp->name;
+		new_path->room[i++] = tmp;
 	new_path->weight = i + 1;
 	env->final_path_weight += i;
 	new_path->path_nb = nb_path;
-	new_path->room[i] = env->end->name;
+	new_path->room[i] = env->end;
 	env->path_tab[nb_path] = new_path;
 }
 
@@ -98,7 +98,7 @@ void solve_map(t_lemin *env)
 {
   env->max_final_path = env->nb_paths;
 	if (!(env->path_tab = ft_memalloc(sizeof(t_path *) * env->nb_paths)))
-		error_msg(env, "ERROR : malloc", 2);//free map + link
+		error_msg(env, "ERROR : malloc", 2);
 	find_final_paths(env);
   sort_final_path(env);
   print_final_paths(env);

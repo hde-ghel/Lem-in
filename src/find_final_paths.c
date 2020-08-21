@@ -32,7 +32,7 @@ int		check_start_link_used(t_lemin *env, t_link *link, int nb_path)
 	tmp = get_right_room(env, link);
 	while (i < nb_path && env->path_tab[i]->room[0] != NULL)
 	{
-		if (ft_strcmp(env->path_tab[i]->room[0], tmp->name) == 0)
+		if (ft_strcmp(env->path_tab[i]->room[0]->name, tmp->name) == 0)
 			return (-1);
 		i++;
 	}
@@ -48,7 +48,7 @@ int check_next_room(t_lemin *env, t_path *new_path, t_room *room)
 		return (1);
 	while (new_path->room[i] != NULL)
 	{
-		if (ft_strcmp(new_path->room[i], room->name) == 0)
+		if (ft_strcmp(new_path->room[i]->name, room->name) == 0)
 			return (1);
 		i++;
 	}

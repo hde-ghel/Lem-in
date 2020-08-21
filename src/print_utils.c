@@ -105,7 +105,7 @@ void print_final_paths(t_lemin *env)
       ft_printf("path weight = %d\n", env->path_tab[i]->weight);
       ft_printf("path nb = %d\n", env->path_tab[i]->path_nb);
       while (env->path_tab[i]->room[j])
-        ft_printf("%s->", env->path_tab[i]->room[j++]);
+        ft_printf("%s->", env->path_tab[i]->room[j++]->name);
 		}
     ft_printf("\n\n");
 		i++;
