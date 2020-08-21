@@ -6,31 +6,30 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:54:59 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/21 17:34:44 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:44:44 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
 
-# define ERROR_NUM "ERROR: numbers of ants is negative or null\n"
-# define ERROR_FORM "ERROR: wrong format for ants number\n"
-# define ERROR_FILE "ERROR: file error or empty file\n"
+#define ERROR_NUM "ERROR: numbers of ants is negative or null\n"
+#define ERROR_FORM "ERROR: wrong format for ants number\n"
+#define ERROR_FILE "ERROR: file error or empty file\n"
 
-
-static int		isnbr(char *str)
+static int	isnbr(char *str)
 {
-	int		i;
+	int	i;
 
 	i = 0;
-	while(str[i] && (str[i] == '-' || str[i] == '+' || str[i] == ' '))
+	while (str[i] && (str[i] == '-' || str[i] == '+' || str[i] == ' '))
 		i++;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
-			return(-1);
+			return (-1);
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
 void		parse_ants(t_lemin *env)
@@ -45,7 +44,7 @@ void		parse_ants(t_lemin *env)
 		{
 			if ((env->nb_ants = ft_atoi(line)) <= 0)
 				error_free_str(env, ERROR_NUM, line);
-			break;
+			break ;
 		}
 		else if (line[0] == '#')//just check if line start with #
 			get_comment(line);
