@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 14:58:44 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/21 17:31:43 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/21 18:21:55 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef	struct	s_xy
 
 struct			s_room
 {
+	int		ants_id;
 	char		*name;
 	t_xy		coord;
 	int		type; //0=normal 1=start 2=end
