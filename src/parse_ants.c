@@ -42,9 +42,10 @@ void		parse_ants(t_lemin *env)
 		{
 			if ((env->nb_ants = ft_atoi(line)) <= 0)
 				error_free_str(env, "ERROR numbers of ants is negative or null\n", line);
+			ft_printf("%s\n", line);
 			break;
 		}
-		else if (line[0] == '#')//just check if line start with #
+		else if (line[0] == '#')
 			get_comment(line);
 		else
 			error_free_str(env, "ERROR wrong format for ants number\n", line);

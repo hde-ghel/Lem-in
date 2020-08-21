@@ -32,6 +32,7 @@ void		new_room(t_lemin *env, char *line) //peut etre rajouter une check savoir s
 {
 	t_room		*new;
 
+	ft_printf("%s\n", env->line);
 	if (!(new = malloc(sizeof(t_room))))
 	{
 		ft_strdel(&line);
@@ -92,6 +93,14 @@ void		get_command(t_lemin *env, char *line)
 			else
 				env->end_room = 1;
 	}
+	ft_printf("%s\n", env->line);
+	ft_strdel(&env->line);
+	if (get_next_line(env->fd, &env->line) == -1)
+		error_msg(env, "ERROR: reading error", 1);
+	if (isroom(env->line))
+		new_room(env, env->line);
+	else
+		error_msg(env, "ERROR: Wrong room format", 1);
 	//else error command unknown or skip
 }
 
@@ -150,8 +159,10 @@ void		parse_rooms(t_lemin *env)
 			get_command(env, env->line);
 		else if (isroom(env->line))
 			new_room(env, env->line);
-		else
+		else if (is_link(env->line, env) == 1)
 			break;
+		else
+			error_msg(env, "ERROR: Wrong room format", 1);
 		ft_strdel(&env->line);
 	}
 	if (ret == -1 || ret == 0)

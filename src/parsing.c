@@ -15,7 +15,7 @@
 //Pas sur de recup les comment
 void		get_comment(char *str)
 {
-	//ft_printf("%s\n", str);
+	ft_printf("%s\n", str);
 }
 
 void	parse_input(t_lemin *env)
@@ -26,7 +26,10 @@ void	parse_input(t_lemin *env)
 	//printf("nb ants = %d\n\n", env->nb_ants);
 	parse_rooms(env);
 	if (env->start_room == 0 || env->end_room == 0)
+	{
+		ft_strdel(&env->line);
 		error_msg(env, "ERROR : End room or start room missing", 1);
+	}
 	parse_links(env);
 	//print_room_map(env);
 	//print_link_list(env);
