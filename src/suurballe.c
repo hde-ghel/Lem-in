@@ -53,9 +53,10 @@ void		inverse_links(t_lemin *env)
 			tmp->weight *= -1;
 			tmp->inversed = 1;
 		}
+		if (room->path_next == env->start)
+			break;
 		room = room->path_next;
 	}
-  ft_printf("check\n");
 }
 
 void  reset_room(t_room *room)
@@ -89,44 +90,74 @@ int		reset(t_lemin *env)
 	return (1);
 }
 
+void revert_selection(t_lemin *env)
+{
+	t_link		*link;
+	t_room 		*tmp;
+
+	link = env->links_map;
+	while (link)
+	{
+		if (link->selected > 1)
+		{
+			tmp = link->room_a;
+			link->room_a = link->room_b;
+			link->room_b = tmp;
+			link->inversed = 0;
+			if (link->duplicated > 0)
+				link->weight = 0;
+			else
+				link->weight = 1;
+			link->selected = 0;
+		}
+		link = link->list_next;
+	}
+}
+
+int		save_and_revert(t_lemin *env, double new, double cost)
+{
+	if ((int)new < (int)cost)
+	{
+		if (add_new_path(env) == -1)
+		{
+			env->nb_paths--;
+			return (-1);
+		}
+		revert_selection(env);
+	}
+	else
+		env->nb_paths--;
+	return (1);
+}
+
 void    suurballe(t_lemin *env)
 {
   double   cost;
   double   new;
 
-  //check start et end connected dans checklinks ??
-  bellman_ford(env);
-  if (add_new_path(env) == -1)//check end_start_link
-    error_msg(env, "ERROR : No possible path");
+	bellman_ford(env);
+  if (add_new_path(env) == -1)
+    error_msg(env, "ERROR : No possible path", 2);
   check_path_weight(env);
-  cost = INT_MAX;
+  cost = MAX_WEIGHT;
   new = path_cost(env);
   env->nb_paths++;
-  //ft_printf("total weight = %d\ncost_path = %f\n", env->total_weight, new);
-  while ((int)new < (int)cost)
+	while ((int)new < (int)cost)
 	{
 		duplicate_path(env);
-    /*t_link *tmp5 = env->links_map;
-    while(tmp5)
-    {
-      ft_printf("inshape %s  %s\n",tmp5->room_a->name, tmp5->room_b->name);
-      if (ft_strequ(tmp5->room_b->name, "patate") && ft_strequ(tmp5->room_a->name, "deterre"))
-        ft_printf("la vie en rose");
-      tmp5 = tmp5->list_next;
-    }
-*/
     inverse_links(env);
-    //reset(env);//reset le poid des room pour bellman_ford
-    //bellman_ford(env);
+    reset(env);//reset le poid des room pour bellman_ford
+    bellman_ford(env);
 		//if (negative_cycle(map, arg) == 1)
 		//	break ;
-		//if (check_path_weight(env) == -1)
-		//	break ;
-		//cost = new;
-		//new = path_cost(env);
-		//if (find_more(new, old, map, arg) == -1)
-		//	break ;
-    env->nb_paths++;
+		if (check_path_weight(env) == -1)
+			break ;
+		cost = new;
+		new = path_cost(env);
+		env->nb_paths++;
+		if (save_and_revert(env, new, cost) == -1)
+			break;
+		//print_new_path(env);
+		//ft_printf("total weight = %d\nnew = %f\nold = %f\n\n", env->total_weight, new, cost);
 	}
-  free_links(env);
 }

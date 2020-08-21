@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_ants.c                                         :+:      :+:    :+:   */
+/*   parse_ants.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:54:59 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/03/08 18:35:52 by hde-ghel         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:34:44 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int		isnbr(char *str)
 	int		i;
 
 	i = 0;
-	while(str[i + 1] && (str[i] == '-' || str[i] == '+' || str[i] == ' '))
+	while(str[i] && (str[i] == '-' || str[i] == '+' || str[i] == ' '))
 		i++;
 	while (str[i])
 	{
@@ -47,7 +47,7 @@ void		parse_ants(t_lemin *env)
 				error_free_str(env, ERROR_NUM, line);
 			break;
 		}
-		else if (line[0] == '#' && line[1] && line[1] != '#')
+		else if (line[0] == '#')//just check if line start with #
 			get_comment(line);
 		else
 			error_free_str(env, ERROR_FORM, line);
@@ -55,5 +55,5 @@ void		parse_ants(t_lemin *env)
 	}
 	ft_strdel(&line);
 	if (ret == -1 || ret == 0)
-		error_msg(env, ERROR_FILE);
+		error_msg(env, "ERROR: file error or empty file\n", 0);
 }

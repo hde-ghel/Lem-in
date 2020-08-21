@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:54:59 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/03/08 18:35:52 by hde-ghel         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:35:43 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,17 @@ void		new_room(t_lemin *env, char *line) //peut etre rajouter une check savoir s
 	t_room		*new;
 
 	if (!(new = malloc(sizeof(t_room))))
-		error_msg(env, ERROR_MEM); // malloc error free
+	{
+		ft_strdel(&line);
+		error_msg(env, "ERROR: memory allocation failed", 1);
+	}
 	ft_bzero(new, sizeof(t_room));
-	new->name = ft_strsub(line, 0, strchr(line, ' ') - line); // protection
+	if (!(new->name = ft_strsub(line, 0, strchr(line, ' ') - line)))
+	 	{
+			ft_strdel(&line);
+			free(new);
+			error_msg(env, "ERROR: memory allocation failed", 1);
+		}
 	new->coord = save_room_coord(line);
 	new->key = hash_key(new->name);
 	env->nb_rooms++;
@@ -73,19 +81,24 @@ static void		get_command(t_lemin *env, char *line)
 	if (ft_strequ(line, "##start"))
 		{
 			if (env->start_room != 0)
-				error_free_str(env, ERROR_START, line);
+			{
+				ft_strdel(&line);
+				error_msg(env, "ERROR more than one room ##start", 1);
+      }
 			else
 				env->start_room = 1;
 		}
 	else if (ft_strequ(line, "##end"))
 	{
 			if (env->end_room != 0)
-				error_free_str(env, ERROR_END, line);
+			{
+				ft_strdel(&line);
+				error_msg(env, "ERROR more than 1 room ##end", 1);
+			}
 			else
 				env->end_room = 1;
 	}
-	else
-		error_free_str(env, ERROR_CMD, line);//else error command unknown
+	//else error command unknown or skip
 }
 
 int		count_space(char *line)
@@ -148,5 +161,8 @@ void		parse_rooms(t_lemin *env)
 		ft_strdel(&env->line);
 	}
 	if (ret == -1 || ret == 0)
-		error_msg(env, ERROR_READ); // strdel(line) free(rooms)
+	{
+		ft_strdel(&env->line);
+		error_msg(env, "ERROR: reading error or no pipes given", 1);
+  }
 }

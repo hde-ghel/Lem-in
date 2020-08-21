@@ -35,12 +35,19 @@ int		is_link(char *line, t_lemin *env)
 
   if (countchar(line, '-') != 1)
     return(0);
-	r_a = ft_strsub(line, 0, strchr(line, '-') - line);
-	r_b = ft_strsub(line, strchr(line, '-') - line + 1, ft_strlen(line));
-	//A proteger
+	if (!(r_a = ft_strsub(line, 0, strchr(line, '-') - line)))
+	{
+		ft_strdel(&line);
+		error_msg(env, "ERROR: allocation failed", 2);
+  }
 	room_a = get_room_by_hash(env, hash_key(r_a), r_a);
+	ft_strdel(&r_a);
+	if (!(r_b = ft_strsub(line, strchr(line, '-') - line + 1, ft_strlen(line))))
+	{
+		ft_strdel(&line);
+		error_msg(env, "ERROR: allocation failed", 2);
+	}
 	room_b = get_room_by_hash(env, hash_key(r_b), r_b);
-  ft_strdel(&r_a);
   ft_strdel(&r_b);
 	if (!room_a || !room_b)
 		return(0);
@@ -66,7 +73,6 @@ void init_link(t_link *link, t_room *r_a, t_room *r_b)
 
 void add_link_to_struct(t_lemin *env, t_link *link, t_room *r_a, t_room *r_b)
 {
-	//check si end et start sont lie si oui, il faudra rajouter le path
 	if ((link->room_a->type == 1 && link->room_b->type == 2) ||
 		(link->room_b->type == 1 && link->room_a->type == 2))
 			env->end_start_link = 1;
@@ -91,15 +97,33 @@ int  new_link(t_lemin *env, char *line)
   	t_room			*r_b;
     char        *tmp;
 
-    tmp = ft_strsub(line, 0, strchr(line, '-') - line);//A proteger
+    if (!(tmp = ft_strsub(line, 0, strchr(line, '-') - line)))
+		{
+			ft_strdel(&line);
+			error_msg(env, "ERROR: allocation failed", 2);
+		}
     r_a = get_room_by_hash(env, hash_key(tmp), tmp);
     ft_strdel(&tmp);
-    tmp = ft_strsub(line, strchr(line, '-') - line + 1, ft_strlen(line));
+    if (!(tmp = ft_strsub(line, strchr(line, '-') - line + 1, ft_strlen(line))))
+		{
+			ft_strdel(&line);
+			error_msg(env, "ERROR: allocation failed", 2);
+		}
   	r_b = get_room_by_hash(env, hash_key(tmp), tmp);
 		ft_strdel(&tmp);
-  	if (!(r_a) || !(r_b) || !(newlink = ft_memalloc(sizeof(t_link)))
-  		|| !(reverselink = ft_memalloc(sizeof(t_link))))
-  		return (-1);
+  	if (!(r_a) || !(r_b))
+			return(-1);
+		if (!(newlink = ft_memalloc(sizeof(t_link))))
+			{
+				ft_strdel(&line);
+				error_msg(env, "ERROR: allocation failed", 2);
+			}
+  	if(!(reverselink = ft_memalloc(sizeof(t_link))))
+		{
+			free(newlink);
+			ft_strdel(&line);
+			error_msg(env, "ERROR: allocation failed", 2);
+		}
     newlink->reverse = reverselink;
     reverselink->reverse = newlink;
 		init_link(newlink, r_a, r_b);
@@ -118,22 +142,22 @@ void		parse_links(t_lemin *env)
 	if (!env->line || is_link(env->line, env) != 1)
 	{
 		ft_strdel(&env->line);
-		error_msg(env, "ERROR: Wrong link format");
+		error_msg(env, "ERROR: Wrong room format", 1);
 	}
-	//new_link(env->line);
+	new_link(env, env->line);
 	ft_strdel(&env->line);
 	while ((ret = get_next_line(env->fd, &env->line)) > 0)
 	{
-		if (env->line[0] == '#' && ft_strlen(env->line) > 1 && env->line[1] != '#')
+		if (env->line[0] == '#' && ft_strlen(env->line) > 1 && env->line[1] != '#')//only test #
 			get_comment(env->line);
 		else 	if (is_link(env->line, env) == 1)
 			new_link(env, env->line);
 		else
-			error_msg(env, "ERROR: Wrong link format");
+			error_msg(env, "ERROR: Wrong link format", 2);//break au lieu de error//free line
 		ft_strdel(&env->line);
 	}
 	if (ret == -1)
-		error_msg(env, "ERROR: reading error");
+		error_msg(env, "ERROR: reading error", 2);
 	else
 		ft_strdel(&env->line);
 }

@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 14:58:44 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/07/30 15:53:32 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:31:43 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 # define HASH_SIZE 500000
 # define MAX_WEIGHT INT_MAX-10
 
-typedef struct s_room	t_room;
-typedef	struct s_link	t_link;
-typedef struct s_xy	t_xy;
-typedef	struct s_lemin	t_lemin;
+typedef struct s_room		t_room;
+typedef	struct s_link		t_link;
+typedef struct s_path		t_path;
+typedef struct s_ants		t_ants;
 
-struct			s_xy
+typedef	struct	s_xy
 {
 	int		x;
 	int		y;
@@ -66,30 +66,49 @@ struct			s_link
 
 struct			s_lemin
 {
-	t_room		*map[HASH_SIZE];
-	t_link		*links_map;
-	int		end_start_link;
-	int		fd;
-	char		*line;
-	int		start_room;
-	int		end_room;
-	int		nb_ants;
-	unsigned long	nb_rooms;
-	unsigned long	nb_links;
-	unsigned long	nb_paths;
-	int		total_weight;
-	double		nb_lines;
-	t_room		*start;
-	t_room		*end;
-	int		log;
+	t_room					*map[HASH_SIZE]; //tab of all room
+	t_link					*links_map; //list of all links
+	t_path					**path_tab;//tableau de path finaux
+	t_ants					**ants;
+  int							end_start_link;
+	int							fd;
+	char						*line;
+	int							start_room;
+	int							end_room;
+	int							nb_ants;
+	unsigned long		nb_rooms;
+	unsigned long		nb_links;
+	unsigned long		nb_paths;//nuber of path found in solve_suurballe
+	int							max_final_path;
+	int							total_weight;
+	int							final_path_weight;
+	double				  nb_lines;
+	t_room					*start;
+	t_room					*end;
+	int							log;
+}				t_lemin;
+
+struct s_path
+{
+	int					path_nb;
+	int					weight;
+	char 				**room;
 };
+
+struct 	s_ants
+{
+	int			ant_id;
+	int			path_id;
+	int			status;
+	char    *actual_room;
+};
+
 
 /*
 ** error.c
 */
-void			error_msg(t_lemin *env, const char *msg);
-void			error_free_str(t_lemin *env, const char *msg, char *str);
-void			free_room_map(t_lemin *env);
+void		error_msg(t_lemin *env, char *str, int free);
+void		error_free_str(t_lemin *env, char *msg, char *str);
 
 /*
 ** parsing.c
@@ -111,23 +130,23 @@ void			parse_rooms(t_lemin *env);
 /*
 ** parse_links.c
 */
-void			parse_links(t_lemin *env);
-void			add_link_to_struct(t_lemin *env, t_link *link, \
-			t_room *r_a, t_room *r_b);
+void		parse_links(t_lemin *env);
+void 		add_link_to_struct(t_lemin *env, t_link *link, t_room *r_a, t_room *r_b);
 
 /*
 ** Hash.c
 */
-unsigned long		hash_key(char *name);
-t_room			*get_room_by_hash(t_lemin *env, unsigned long key, char *room);
-t_link			*get_link(t_lemin *env, t_room *a, t_room *b);
+unsigned long	hash_key(char *name);
+t_room				*get_room_by_hash(t_lemin *env, unsigned long key, char *room);
+t_link 				*get_link(t_lemin *env, t_room *a, t_room *b);
 
 /*
 ** print_utils.c
 */
-void			print_room_map(t_lemin *env);
-void			print_link_list(t_lemin *env);
-void			print_new_path(t_lemin *env);
+void 					print_room_map(t_lemin *env);
+void 					print_link_list(t_lemin *env);
+void  				print_new_path(t_lemin *env);
+void 					print_final_paths(t_lemin *env);
 
 /*
 ** suurballe.c
@@ -148,10 +167,23 @@ int			check_path_weight(t_lemin *env);
 /*
 ** free_tools.c
 */
-void			free_links(t_lemin *env);
+void 		free_links(t_lemin *env);
+void 		free_room_map(t_lemin *env);
+void 		free_path_list(t_lemin *env);
 
 /*
 ** dup_room.c
 */
 void			duplicate_path(t_lemin *env);
+/*
+ * solve_suurballe.c
+*/
+void 			solve_map(t_lemin *env);
+/*
+ * find_final_paths.c
+*/
+t_room 		*get_right_room(t_lemin *env, t_link *link);
+t_room 		*get_next_room(t_lemin *env, t_room *tmp, t_path *new_path);
+int 			check_next_room(t_lemin *env, t_path *new_path, t_room *room);
+int		check_start_link_used(t_lemin *env, t_link *link, int nb_path);
 #endif
