@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_rooms.c                                      :+:      :+:    :+:   */
+/*   hash.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:54:59 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/03/08 18:35:52 by hde-ghel         ###   ########.fr       */
+/*   Updated: 2020/08/22 18:12:38 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ t_link			*get_link_by_room(t_lemin *env, t_room *a, t_room *b)
 	{
 		if (link->room_b == b &&
 		link->room_a == a &&
-		link->room_a->duplicated == a->duplicated && link->room_b->duplicated == b->duplicated)
+		link->room_a->duplicated == a->duplicated && \
+		link->room_b->duplicated == b->duplicated)
 			return (link);
 		link = link->list_next;
 	}
