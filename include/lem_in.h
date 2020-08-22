@@ -182,4 +182,8 @@ t_room 		*get_right_room(t_lemin *env, t_link *link);
 t_room 		*get_next_room(t_lemin *env, t_room *tmp, t_path *new_path);
 int 			check_next_room(t_lemin *env, t_path *new_path, t_room *room);
 int		check_start_link_used(t_lemin *env, t_link *link, int nb_path);
+/*
+ * find_final_paths.c
+*/
+int		print_solution(t_lemin *env);
 #endif

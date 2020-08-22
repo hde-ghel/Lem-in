@@ -41,7 +41,8 @@ t_link			*get_link_by_room(t_lemin *env, t_room *a, t_room *b)
 	{
 		if (link->room_b == b &&
 		link->room_a == a &&
-		link->room_a->duplicated == a->duplicated && link->room_b->duplicated == b->duplicated)
+		link->room_a->duplicated == a->duplicated &&
+		link->room_b->duplicated == b->duplicated)
 			return (link);
 		link = link->list_next;
 	}

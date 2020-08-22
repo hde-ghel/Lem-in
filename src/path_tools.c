@@ -27,7 +27,7 @@ double	path_cost(t_lemin *env)
 int		count_select(t_lemin *env)
 {
 	t_room		*room;
-	t_link	*link;
+	t_link		*link;
 
 	room = env->end;
 	while (room)
@@ -44,7 +44,7 @@ int		count_select(t_lemin *env)
 				link->reverse->check_selected++;
 		}
 		if (room->path_next == env->start)
-	    return (1);
+			return (1);
 		room = room->path_next;
 	}
 	return (0);
@@ -52,7 +52,7 @@ int		count_select(t_lemin *env)
 
 int		check_path_weight(t_lemin *env)
 {
-	int tmpweight;
+	int		tmpweight;
 	t_link	*link;
 
 	tmpweight = env->total_weight;

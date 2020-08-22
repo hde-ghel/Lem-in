@@ -80,7 +80,7 @@ int			main(int ac, char **av)
 	{
 		suurballe(&env);
 		solve_map(&env);
-		//print_solution(&env);
+		print_solution(&env);
 		free_path_list(&env);
 	}
 	if (env.fd)

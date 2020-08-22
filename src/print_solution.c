@@ -12,8 +12,7 @@
 
 #include "../include/lem_in.h"
 
-int   print_solution(t_lemin *env)
+int		print_solution(t_lemin *env)
 {
-  //move_ants();
-  return(0);
+	return (0);
 }
