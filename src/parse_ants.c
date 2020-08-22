@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:54:59 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/22 17:44:57 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/22 18:10:37 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #define ERROR_NUM "ERROR: numbers of ants is negative or null\n"
 #define ERROR_FORM "ERROR: wrong format for ants number\n"
 #define ERROR_FILE "ERROR: file error or empty file\n"
+#define ERROR_ANTS "ERROR numbers of ants is negative or null\n"
+#define ERROR_EMPTY "ERROR: file error or empty file\n"
 
 static int	isnbr(char *str)
 {
@@ -43,9 +45,9 @@ void		parse_ants(t_lemin *env)
 		if (isnbr(line) == 1)
 		{
 			if ((env->nb_ants = ft_atoi(line)) <= 0)
-				error_free_str(env, "ERROR numbers of ants is negative or null\n", line);
+				error_free_str(env, ERROR_ANTS, line);
 			ft_printf("%s\n", line);
-			break;
+			break ;
 		}
 		else if (line[0] == '#')
 			get_comment(line);
@@ -55,5 +57,5 @@ void		parse_ants(t_lemin *env)
 	}
 	ft_strdel(&line);
 	if (ret == -1 || ret == 0)
-		error_msg(env, "ERROR: file error or empty file\n", 0);
+		error_msg(env, ERROR_EMPTY, 0);
 }
