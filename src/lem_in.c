@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:01:39 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/22 17:45:18 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/22 17:54:55 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int			main(int ac, char **av)
 	ft_bzero(&env, sizeof(env));
 	env.nb_lines = INT_MAX;
 	if (ac != 1)
-		check_arg(&env, ac, av);
+		check_arg(&env, av, ac);
 	parse_input(&env);
 	if (env.end_start_link == 1)
 		print_one_link_solution(&env);
