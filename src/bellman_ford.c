@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:54:59 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/21 17:53:56 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/22 17:46:15 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		bellman_ford_bis(t_link *link, t_lemin *env)
 {
-	int	changed;
+	int		changed;
 
 	changed = 0;
 	while (link)
@@ -32,10 +32,10 @@ int		bellman_ford_bis(t_link *link, t_lemin *env)
 	return (changed);
 }
 
-void		bellman_ford(t_lemin *env)
+void	bellman_ford(t_lemin *env)
 {
-	int		countrooms;
-	t_link	*link;
+	t_link		*link;
+	int			countrooms;
 
 	countrooms = env->nb_rooms;
 	link = env->links_map;

@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:54:59 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/21 17:40:30 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/22 17:45:49 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	init_room_out(t_lemin *env, t_room *room, t_room *out)
 
 void	create_out_link(t_lemin *env, t_room *room, t_room *out)
 {
-	t_link *link;
+	t_link	*link;
 
 	if (!(link = ft_memalloc(sizeof(t_link))))
 	{
@@ -78,7 +78,7 @@ void	dup_room(t_lemin *env, t_room *room)
 
 void	duplicate_path(t_lemin *env)
 {
-	t_room *room;
+	t_room	*room;
 
 	room = env->end;
 	while (room && room != env->start)

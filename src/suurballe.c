@@ -146,10 +146,8 @@ void    suurballe(t_lemin *env)
 	{
 		duplicate_path(env);
     inverse_links(env);
-    reset(env);//reset le poid des room pour bellman_ford
+    reset(env);
     bellman_ford(env);
-		//if (negative_cycle(map, arg) == 1)
-		//	break ;
 		if (check_path_weight(env) == -1)
 			break ;
 		cost = new;
@@ -157,7 +155,5 @@ void    suurballe(t_lemin *env)
 		env->nb_paths++;
 		if (save_and_revert(env, new, cost) == -1)
 			break;
-		//print_new_path(env);
-		//ft_printf("total weight = %d\nnew = %f\nold = %f\n\n", env->total_weight, new, cost);
 	}
 }

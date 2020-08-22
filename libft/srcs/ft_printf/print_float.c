@@ -51,6 +51,7 @@ static	char	*ftoa(t_option *opt, long double nb)
 	char			*f_str;
 	long double		float_part;
 
+	f_str = NULL;
 	float_part = nb - (unsigned long long)nb + 1;
 	float_part *= precision_multiplier(opt);
 	if ((float_part - (unsigned long long)float_part) >= 0.5)
@@ -61,10 +62,7 @@ static	char	*ftoa(t_option *opt, long double nb)
 	if (opt->precision == 0 && opt->flag_sharp)
 	{
 		if (!(f_str = ft_strjoin_free(d_str, ".", 1)))
-		{
-			ft_strdel(&d_str);
-			return (NULL);
-		}
+			return (free_str(d_str, NULL));
 		else
 			return (f_str);
 	}
@@ -73,14 +71,7 @@ static	char	*ftoa(t_option *opt, long double nb)
 		opt->width--;
 		return (d_str);
 	}
-	if (!(f_str = ull_itoa((unsigned long long)float_part)))
-		return (free_str(d_str, NULL));
-	if (!(d_str = ft_strjoin_free(d_str, ".", 1)))
-		return (free_str(d_str, f_str));
-	if (!(d_str = ft_strjoin_free(d_str, f_str + 1, 1)))
-		return (free_str(d_str, f_str));
-	ft_strdel(&f_str);
-	return (d_str);
+	return (ftoa_bis(f_str, d_str, float_part));
 }
 
 static	void	displa_float(t_option *opt)

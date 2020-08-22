@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:54:59 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/21 17:44:44 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/22 17:44:57 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ void		parse_ants(t_lemin *env)
 		if (isnbr(line) == 1)
 		{
 			if ((env->nb_ants = ft_atoi(line)) <= 0)
-				error_free_str(env, ERROR_NUM, line);
-			break ;
+				error_free_str(env, "ERROR numbers of ants is negative or null\n", line);
+			ft_printf("%s\n", line);
+			break;
 		}
-		else if (line[0] == '#')//just check if line start with #
+		else if (line[0] == '#')
 			get_comment(line);
 		else
 			error_free_str(env, ERROR_FORM, line);

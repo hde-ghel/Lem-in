@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:01:39 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/21 17:56:36 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/22 17:45:18 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void		print_one_link_solution(t_lemin *env)
 
 void		print_usage(t_lemin *env)
 {
-	ft_printf("USAGE:\n./lem_in < \"map-file\" or ./lem_in -m \"map-file\"\
-		\n\nOPTIONS:\n-h : print usage (only print usage)\
-		\n-i : print input\n-m : enter a file-name\n");
+	ft_putendl("usage:\n./lem_in < \"map-file\" or ./lem_in -m \"map-file\"\n\
+\nOptions:\n-h : print usage (only print usage)\n-i : print error_msg\n-m : \
+enter a file-name\n");
 	if (env->fd)
 		close(env->fd);
 	exit(0);
@@ -43,7 +43,7 @@ static void	open_map_file(t_lemin *env, int *i, char **av)
 	(*i)++;
 }
 
-static void	check_arg(t_lemin *env, int ac, char **av)
+void		check_arg(t_lemin *env, char **av, int ac)
 {
 	int	i;
 
@@ -52,7 +52,7 @@ static void	check_arg(t_lemin *env, int ac, char **av)
 	{
 		if (ft_strequ(av[i], "-h"))
 			print_usage(env);
-		else if (ft_strequ(av[i], "-i"))
+		else if (ft_strequ(av[i], "-e"))
 			env->log = PRINT_LOG;
 		else if (ft_strequ(av[i], "-m"))
 			open_map_file(env, &i, av);
@@ -65,7 +65,7 @@ static void	check_arg(t_lemin *env, int ac, char **av)
 	}
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_lemin	env;
 

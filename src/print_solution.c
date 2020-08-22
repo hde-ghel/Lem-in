@@ -14,6 +14,6 @@
 
 int   print_solution(t_lemin *env)
 {
-  move_ants();
+  //move_ants();
   return(0);
 }

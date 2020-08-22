@@ -111,7 +111,7 @@ int  new_link(t_lemin *env, char *line)
 		}
   	r_b = get_room_by_hash(env, hash_key(tmp), tmp);
 		ft_strdel(&tmp);
-  	if (!(r_a) || !(r_b))
+  	if (!(r_a) || !(r_b) || r_a == r_b || get_link_by_room(env, r_a, r_b))
 			return(-1);
 		if (!(newlink = ft_memalloc(sizeof(t_link))))
 			{
@@ -124,6 +124,7 @@ int  new_link(t_lemin *env, char *line)
 			ft_strdel(&line);
 			error_msg(env, "ERROR: allocation failed", 2);
 		}
+		ft_printf("%s\n", env->line);
     newlink->reverse = reverselink;
     reverselink->reverse = newlink;
 		init_link(newlink, r_a, r_b);
@@ -148,12 +149,15 @@ void		parse_links(t_lemin *env)
 	ft_strdel(&env->line);
 	while ((ret = get_next_line(env->fd, &env->line)) > 0)
 	{
-		if (env->line[0] == '#' && ft_strlen(env->line) > 1 && env->line[1] != '#')//only test #
+		if (env->line[0] == '#')
 			get_comment(env->line);
 		else 	if (is_link(env->line, env) == 1)
 			new_link(env, env->line);
 		else
-			error_msg(env, "ERROR: Wrong link format", 2);//break au lieu de error//free line
+		{
+			ft_printf("ERROR: wrong link format, solving with actual ant farm\n");
+			break;
+		}
 		ft_strdel(&env->line);
 	}
 	if (ret == -1)
