@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 14:58:44 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/22 17:46:48 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/22 17:57:12 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@
 # define	HASH_SIZE 500000
 # define	MAX_WEIGHT INT_MAX - 10
 
-typedef struct s_room		t_room;
-typedef	struct s_link		t_link;
-typedef struct s_path		t_path;
-typedef struct s_ants		t_ants;
+typedef struct	s_room		t_room;
+typedef	struct	s_link		t_link;
+typedef struct	s_path		t_path;
+typedef struct	s_ants		t_ants;
+typedef struct	s_lemin		t_lemin;
+typedef	struct	s_xy		t_xy;
 
-typedef	struct	s_xy
+struct	s_xy
 {
 	int		x;
 	int		y;
@@ -89,7 +91,7 @@ struct			s_lemin
 	t_room					*start;
 	t_room					*end;
 	int							log;
-}				t_lemin;
+};
 
 struct s_path
 {

@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:54:59 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/22 17:44:29 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/22 17:57:31 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int		count_space(char *line)
 	return (space);
 }
 
-static int	isroom(char *line)
+int	isroom(char *line)
 {
 	int		i;
 
