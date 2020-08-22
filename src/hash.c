@@ -12,22 +12,40 @@
 
 #include "../include/lem_in.h"
 
-t_link *get_link(t_lemin *env, t_room *a, t_room *b)
+t_link			*get_link(t_lemin *env, t_room *a, t_room *b)
 {
-  t_link  *link;
+	t_link	*link;
 
-  if (!a || !b)
-    return (NULL);
-  link = env->links_map;
-  while (link)
-  {
-    if (ft_strequ(link->room_b->name, b->name) &&
-      ft_strequ(link->room_a->name, a->name) &&
-      link->room_a->duplicated == a->duplicated && link->room_b->duplicated == b->duplicated)
-      return (link);
-    link = link->list_next;
-  }
-  return (NULL);
+	if (!a || !b)
+		return (NULL);
+	link = env->links_map;
+	while (link)
+	{
+		if (link->room_b == b && link->room_a == a &&
+			link->room_a->duplicated == a->duplicated &&
+			link->room_b->duplicated == b->duplicated)
+			return (link);
+		link = link->list_next;
+	}
+	return (NULL);
+}
+
+t_link			*get_link_by_room(t_lemin *env, t_room *a, t_room *b)
+{
+	t_link	*link;
+
+	if (!a || !b)
+		return (NULL);
+	link = a->link_list;
+	while (link)
+	{
+		if (link->room_b == b &&
+		link->room_a == a &&
+		link->room_a->duplicated == a->duplicated && link->room_b->duplicated == b->duplicated)
+			return (link);
+		link = link->list_next;
+	}
+	return (NULL);
 }
 
 unsigned long	hash_key(char *name)
@@ -45,7 +63,7 @@ unsigned long	hash_key(char *name)
 	return (hash % HASH_SIZE);
 }
 
-t_room		*get_room_by_hash(t_lemin *env, unsigned long key, char *room)
+t_room			*get_room_by_hash(t_lemin *env, unsigned long key, char *room)
 {
 	t_room *tmp;
 

@@ -22,7 +22,7 @@
 
 # define	PRINT_LOG 1
 # define	HASH_SIZE 500000
-# define	MAX_WEIGHT INT_MAX -10
+# define	MAX_WEIGHT INT_MAX - 10
 
 typedef struct s_room		t_room;
 typedef	struct s_link		t_link;
@@ -134,6 +134,7 @@ int		  is_link(char *line, t_lemin *env);
 unsigned long	hash_key(char *name);
 t_room				*get_room_by_hash(t_lemin *env, unsigned long key, char *room);
 t_link 				*get_link(t_lemin *env, t_room *a, t_room *b);
+t_link 				*get_link_by_room(t_lemin *env, t_room *a, t_room *b);
 
 /*
  * print_utils.c

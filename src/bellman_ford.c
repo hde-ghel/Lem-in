@@ -14,27 +14,27 @@
 
 int		bellman_ford_bis(t_link *link, t_lemin *env)
 {
-	int changed;
+	int		changed;
 
 	changed = 0;
 	while (link)
 	{
-			if (link->room_a->weight != MAX_WEIGHT
-				&& link->room_a->weight + link->weight < link->room_b->weight
-				&& link->room_b != env->start && link->room_a != env->end)
-			{
-				link->room_b->weight = link->weight + link->room_a->weight;
-				link->room_b->path_next = link->room_a;
-				changed = 1;
+		if (link->room_a->weight != MAX_WEIGHT
+			&& link->room_a->weight + link->weight < link->room_b->weight
+			&& link->room_b != env->start && link->room_a != env->end)
+		{
+			link->room_b->weight = link->weight + link->room_a->weight;
+			link->room_b->path_next = link->room_a;
+			changed = 1;
 		}
 		link = link->list_next;
 	}
 	return (changed);
 }
 
-void		bellman_ford(t_lemin *env)
+void	bellman_ford(t_lemin *env)
 {
-	t_link	*link;
+	t_link		*link;
 	int			countrooms;
 
 	countrooms = env->nb_rooms;

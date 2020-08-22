@@ -12,7 +12,7 @@
 
 #include "../include/lem_in.h"
 
-t_room *get_right_room(t_lemin *env, t_link *link)
+t_room		*get_right_room(t_lemin *env, t_link *link)
 {
 	t_room *room;
 
@@ -23,7 +23,7 @@ t_room *get_right_room(t_lemin *env, t_link *link)
 	return (room);
 }
 
-int		check_start_link_used(t_lemin *env, t_link *link, int nb_path)
+int			check_start_link_used(t_lemin *env, t_link *link, int nb_path)
 {
 	t_room	*tmp;
 	int		i;
@@ -39,7 +39,7 @@ int		check_start_link_used(t_lemin *env, t_link *link, int nb_path)
 	return (1);
 }
 
-int check_next_room(t_lemin *env, t_path *new_path, t_room *room)
+int			check_next_room(t_lemin *env, t_path *new_path, t_room *room)
 {
 	int i;
 
@@ -55,7 +55,7 @@ int check_next_room(t_lemin *env, t_path *new_path, t_room *room)
 	return (0);
 }
 
-t_room 	*get_next_room(t_lemin *env, t_room *tmp, t_path *new_path)
+t_room		*get_next_room(t_lemin *env, t_room *tmp, t_path *new_path)
 {
 	t_link *link;
 
@@ -72,8 +72,8 @@ t_room 	*get_next_room(t_lemin *env, t_room *tmp, t_path *new_path)
 			if ((ft_strcmp(link->room_b->name, tmp->name) == 0)
 				&& (check_next_room(env, new_path, link->room_a) == 0))
 				return (link->room_a);
-			}
-			link = link->list_next;
 		}
-		return (NULL);
+		link = link->list_next;
+	}
+	return (NULL);
 }

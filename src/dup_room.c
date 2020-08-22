@@ -12,16 +12,16 @@
 
 #include "../include/lem_in.h"
 
-void    change_room_in_links(t_room *room)
+void	change_room_in_links(t_room *room)
 {
-  t_link  *link;
+	t_link	*link;
 
-  link = room->link_list;
-  while(link)
-  {
-    link->room_a = room->out;
-    link = link->room_link_next;
-  }
+	link = room->link_list;
+	while (link)
+	{
+		link->room_a = room->out;
+		link = link->room_link_next;
+	}
 }
 
 void	init_room_out(t_lemin *env, t_room *room, t_room *out)
@@ -29,7 +29,7 @@ void	init_room_out(t_lemin *env, t_room *room, t_room *out)
 	out->duplicated = 2;
 	out->key = hash_key(out->name);
 	out->in = room;
-  room->duplicated = 1;
+	room->duplicated = 1;
 	room->out = out;
 	if (env->map[out->key] == NULL)
 		env->map[out->key] = out;
@@ -39,25 +39,25 @@ void	init_room_out(t_lemin *env, t_room *room, t_room *out)
 		env->map[out->key] = out;
 	}
 	change_room_in_links(room);
-  out->link_list = room->link_list;
+	out->link_list = room->link_list;
 }
 
-void  create_out_link(t_lemin *env, t_room *room, t_room *out)
+void	create_out_link(t_lemin *env, t_room *room, t_room *out)
 {
-  t_link *link;
+	t_link	*link;
 
 	if (!(link = ft_memalloc(sizeof(t_link))))
 	{
 		ft_strdel(&out->name);
 		free(out);
-	  error_msg(env, "ERROR : malloc", 2);
+		error_msg(env, "ERROR : malloc", 2);
 	}
 	link->room_a = room;
 	link->room_b = out;
 	link->duplicated = 1;
 	link->selected = 1;
 	link->room_b->path_next = link->room_a;
-  link->room_a->link_list = link;
+	link->room_a->link_list = link;
 	add_link_to_struct(env, link, room, out);
 }
 
@@ -66,7 +66,7 @@ void	dup_room(t_lemin *env, t_room *room)
 	t_room *out;
 
 	if (!(out = ft_memalloc(sizeof(t_room))))
-    error_msg(env, "ERROR : malloc", 2);
+		error_msg(env, "ERROR : malloc", 2);
 	if (!(out->name = ft_strdup(room->name)))
 	{
 		free(out);
@@ -76,11 +76,11 @@ void	dup_room(t_lemin *env, t_room *room)
 	create_out_link(env, room, out);
 }
 
-void		duplicate_path(t_lemin *env)
+void	duplicate_path(t_lemin *env)
 {
-  t_room *room;
+	t_room	*room;
 
-  room = env->end;
+	room = env->end;
 	while (room && room != env->start)
 	{
 		if (room->path_next && room->path_next->duplicated < 1 &&

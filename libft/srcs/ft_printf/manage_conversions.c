@@ -65,7 +65,7 @@ char			*ull_itoa(unsigned long long n)
 	return (str);
 }
 
-char	*free_str(char *str1, char *str2)
+char			*free_str(char *str1, char *str2)
 {
 	if (str1 != NULL)
 		ft_strdel(&str1);

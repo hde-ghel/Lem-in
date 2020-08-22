@@ -111,7 +111,7 @@ int  new_link(t_lemin *env, char *line)
 		}
   	r_b = get_room_by_hash(env, hash_key(tmp), tmp);
 		ft_strdel(&tmp);
-  	if (!(r_a) || !(r_b))
+  	if (!(r_a) || !(r_b) || r_a == r_b || get_link_by_room(env, r_a, r_b))
 			return(-1);
 		if (!(newlink = ft_memalloc(sizeof(t_link))))
 			{

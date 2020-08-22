@@ -12,11 +12,11 @@
 
 #include "../include/lem_in.h"
 
-void free_room_map(t_lemin *env)
+void		free_room_map(t_lemin *env)
 {
-	int	i;
-	t_room  *tmp;
-	t_room  *tmp2;
+	int		i;
+	t_room	*tmp;
+	t_room	*tmp2;
 
 	i = 0;
 	while (i < HASH_SIZE - 1)
@@ -38,26 +38,26 @@ void free_room_map(t_lemin *env)
 	}
 }
 
-void free_links(t_lemin *env)
+void		free_links(t_lemin *env)
 {
-  t_link *tmp;
-  t_link *tmp2;
+	t_link		*tmp;
+	t_link		*tmp2;
 
-  tmp = env->links_map;
-  while (tmp)
-  {
-    tmp2 = tmp->list_next;
-    free(tmp);
-    tmp = tmp2;
-  }
+	tmp = env->links_map;
+	while (tmp)
+	{
+		tmp2 = tmp->list_next;
+		free(tmp);
+		tmp = tmp2;
+	}
 }
 
-void free_path_list(t_lemin *env)
+void		free_path_list(t_lemin *env)
 {
 	int		i;
 
 	i = 0;
-	while(i < env->max_final_path)
+	while (i < env->max_final_path)
 	{
 		if (env->path_tab[i])
 		{

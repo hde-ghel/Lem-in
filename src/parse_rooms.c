@@ -28,7 +28,7 @@ t_xy save_room_coord(char *line)
 	return (coord);
 }
 
-void		new_room(t_lemin *env, char *line) //peut etre rajouter une check savoir si la room existe deja
+void		new_room(t_lemin *env, char *line)
 {
 	t_room		*new;
 
@@ -95,13 +95,32 @@ void		get_command(t_lemin *env, char *line)
 	}
 	ft_printf("%s\n", env->line);
 	ft_strdel(&env->line);
-	if (get_next_line(env->fd, &env->line) == -1)
-		error_msg(env, "ERROR: reading error", 1);
+	int		ret = 0;
+	while ((ret = get_next_line(env->fd, &env->line)) > 0)
+	{
+		if (ft_strequ(env->line, "##start") || ft_strequ(env->line, "##end"))
+		{
+			ft_strdel(&env->line);
+			error_msg(env, "ERROR : command start/end after start/end", 1);
+    }
+		else if (env->line[0] == '#')
+			get_comment(env->line);
+		else
+			break;
+		ft_strdel(&env->line);
+	}
+	if (ret == -1 || ret == 0)
+	{
+	  ft_strdel(&env->line);
+		error_msg(env, "ERROR: reading error or no room for start/end", 1);
+	}
 	if (isroom(env->line))
 		new_room(env, env->line);
 	else
-		error_msg(env, "ERROR: Wrong room format", 1);
-	//else error command unknown or skip
+	{
+		ft_strdel(&env->line);
+		error_msg(env, "ERROR: no room given after command start/end", 1);
+  }
 }
 
 int		count_space(char *line)
@@ -153,16 +172,19 @@ void		parse_rooms(t_lemin *env)
 	ret = 0;
 	while ((ret = get_next_line(env->fd, &env->line)) > 0)
 	{
-		if (env->line[0] == '#' && ft_strlen(env->line) > 1 && env->line[1] != '#')
-			get_comment(env->line);
-		else if (env->line[0] == '#' && ft_strlen(env->line) > 1 && env->line[1] == '#')
+		if (ft_strequ(env->line, "##start") || ft_strequ(env->line, "##end"))
 			get_command(env, env->line);
+		else if (env->line[0] == '#')
+			get_comment(env->line);
 		else if (isroom(env->line))
 			new_room(env, env->line);
 		else if (is_link(env->line, env) == 1)
 			break;
 		else
+		{
+			ft_strdel(&env->line);
 			error_msg(env, "ERROR: Wrong room format", 1);
+		}
 		ft_strdel(&env->line);
 	}
 	if (ret == -1 || ret == 0)
