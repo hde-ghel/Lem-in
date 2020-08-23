@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:21:44 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/22 17:45:32 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/24 00:37:16 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	error_msg(t_lemin *env, char *msg, int free)
 	if (env->log == 1)
 		ft_putstr_fd(msg, 2);
 	else
-		ft_putstr("ERROR");
+		ft_putstr("ERROR\n");
 	if (env->fd)
 		close(env->fd);
 	exit(-1);
