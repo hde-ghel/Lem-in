@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:54:59 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/22 17:57:31 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/24 01:03:00 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void		new_room(t_lemin *env, char *line)
 
 static void	get_command(t_lemin *env, char *line)
 {
+	int	ret;
+
 	if (ft_strequ(line, "##start"))
 	{
 		if (env->start_room != 0)
@@ -101,23 +103,23 @@ static void	get_command(t_lemin *env, char *line)
 	}
 	ft_printf("%s\n", env->line);
 	ft_strdel(&env->line);
-	int		ret = 0;
+	ret = 0;
 	while ((ret = get_next_line(env->fd, &env->line)) > 0)
 	{
 		if (ft_strequ(env->line, "##start") || ft_strequ(env->line, "##end"))
 		{
 			ft_strdel(&env->line);
 			error_msg(env, "ERROR : command start/end after start/end", 1);
-    }
+		}
 		else if (env->line[0] == '#')
 			get_comment(env->line);
 		else
-			break;
+			break ;
 		ft_strdel(&env->line);
 	}
 	if (ret == -1 || ret == 0)
 	{
-	  ft_strdel(&env->line);
+		ft_strdel(&env->line);
 		error_msg(env, "ERROR: reading error or no room for start/end", 1);
 	}
 	if (isroom(env->line))
@@ -126,7 +128,7 @@ static void	get_command(t_lemin *env, char *line)
 	{
 		ft_strdel(&env->line);
 		error_msg(env, "ERROR: no room given after command start/end", 1);
-  }
+	}
 }
 
 int		count_space(char *line)
@@ -185,7 +187,7 @@ void		parse_rooms(t_lemin *env)
 		else if (isroom(env->line))
 			new_room(env, env->line);
 		else if (is_link(env->line, env) == 1)
-			break;
+			break ;
 		else
 		{
 			ft_strdel(&env->line);
