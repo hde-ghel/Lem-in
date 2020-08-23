@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 14:58:44 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/22 17:57:12 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/23 23:58:36 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@
 # define	HASH_SIZE 500000
 # define	MAX_WEIGHT INT_MAX - 10
 
-typedef struct	s_room		t_room;
-typedef	struct	s_link		t_link;
-typedef struct	s_path		t_path;
-typedef struct	s_ants		t_ants;
-typedef struct	s_lemin		t_lemin;
-typedef	struct	s_xy		t_xy;
+typedef struct s_room		t_room;
+typedef	struct s_link		t_link;
+typedef struct s_path		t_path;
+typedef struct s_xy		t_xy;
+typedef struct s_lemin		t_lemin;
+
 
 struct	s_xy
 {
@@ -74,7 +74,6 @@ struct			s_lemin
 	t_room					*map[HASH_SIZE]; //tab of all room
 	t_link					*links_map; //list of all links
 	t_path					**path_tab;//tableau de path finaux
-	t_ants					**ants;
   int							end_start_link;
 	int							fd;
 	char						*line;
@@ -186,4 +185,8 @@ t_room 		*get_right_room(t_lemin *env, t_link *link);
 t_room 		*get_next_room(t_lemin *env, t_room *tmp, t_path *new_path);
 int 			check_next_room(t_lemin *env, t_path *new_path, t_room *room);
 int		check_start_link_used(t_lemin *env, t_link *link, int nb_path);
+/*
+ * find_final_paths.c
+*/
+int		print_solution(t_lemin *env);
 #endif

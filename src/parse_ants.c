@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:54:59 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/08/22 18:10:37 by ababaie-         ###   ########.fr       */
+/*   Updated: 2020/08/23 23:57:18 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #define ERROR_ANTS "ERROR numbers of ants is negative or null\n"
 #define ERROR_EMPTY "ERROR: file error or empty file\n"
 
-static int	isnbr(char *str)
+static	int		isnbr(char *str)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ static int	isnbr(char *str)
 	return (1);
 }
 
-void		parse_ants(t_lemin *env)
+void			parse_ants(t_lemin *env)
 {
 	int		ret;
 	char	*line;
