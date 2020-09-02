@@ -35,16 +35,16 @@ struct					s_room
 {
 	char				*name;
 	t_xy				coord;
-	int					type; //0=normal 1=start 2=end
+	int					type;
 	unsigned long		key;
 	int					weight;
 	int					duplicated;
-	int					ants; //numero de fourmis sur cette room du path
+	int					ants;
 	t_room				*out;
 	t_room				*in;
-	t_room				*path_next;// prochaine room du path en cour
-	t_link				*link_list; //les different lien de la room
-	t_room				*next; //liste cree en cas de hascode les meme
+	t_room				*path_next;
+	t_link				*link_list;
+	t_room				*next;
 };
 
 struct					s_link
@@ -58,8 +58,8 @@ struct					s_link
 	int					selected;
 	int					check_selected;
 	t_link				*reverse;
-	t_link				*room_link_next;//suite des lien de room
-	t_link				*list_next; //liste de tout les liens suivant
+	t_link				*room_link_next;
+	t_link				*list_next;
 };
 
 struct					s_path
@@ -71,9 +71,9 @@ struct					s_path
 
 typedef	struct			s_lemin
 {
-	t_room				**map; //tab of all room
-	t_link				*links_map; //list of all links
-	t_path				**path_tab;//tableau de path finaux
+	t_room				**map;
+	t_link				*links_map;
+	t_path				**path_tab;
 	int					end_start_link;
 	int					fd;
 	char				*line;
@@ -82,7 +82,7 @@ typedef	struct			s_lemin
 	int					nb_ants;
 	unsigned long		nb_rooms;
 	unsigned long		nb_links;
-	unsigned long		nb_paths;//nuber of path found in solve_suurballe
+	unsigned long		nb_paths;
 	int					max_final_path;
 	int					total_weight;
 	int					final_path_weight;
@@ -97,7 +97,7 @@ typedef	struct			s_lemin
 */
 void					error_msg(t_lemin *env, char *str, int free);
 void					error_free_str(t_lemin *env, char *msg, char *str);
-void 					error_exit(void);
+void					error_exit(void);
 
 /*
 ** parsing.c
@@ -105,7 +105,8 @@ void 					error_exit(void);
 void					parse_input(t_lemin *env);
 void					get_comment(char *str);
 int						countchar(char *str, char c);
-int 					check_double_link(t_lemin *env, t_room *r_a, t_room *r_b);
+int						check_double_link(t_lemin *env, t_room *r_a,
+							t_room *r_b);
 
 /*
 ** parse_ants.c
@@ -122,9 +123,9 @@ void					get_command(t_lemin *env);
 /*
 ** parse_rooms_tools.c
 */
-int			isroom(char *line);
-int			count_space(char *line);
-t_xy		save_room_coord(char *line);
+int						isroom(char *line);
+int						count_space(char *line);
+t_xy					save_room_coord(char *line);
 
 /*
 ** parse_links.c
@@ -160,7 +161,7 @@ int						add_new_path(t_lemin *env);
 /*
 ** suurballe_tools.c
 */
-int			save_and_revert(t_lemin *env, double new, double cost);
+int						save_and_revert(t_lemin *env, double new, double cost);
 
 /*
 ** bellman_ford.c
