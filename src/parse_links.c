@@ -12,20 +12,6 @@
 
 #include "../include/lem_in.h"
 
-int		countchar(char *str, char c)
-{
-	int		i;
-
-	i = 0;
-	while (*str)
-	{
-		if (*str == c)
-			i++;
-		str++;
-	}
-	return (i);
-}
-
 int		is_link(char *line, t_lemin *env)
 {
 	t_room		*room_a;
@@ -93,12 +79,8 @@ int		new_link(t_lemin *env, char *line, t_room *r_a, t_room *r_b)
 	t_link			*newlink;
 	t_link			*reverselink;
 
-	if (get_link_by_room(r_a, r_b) || r_a == r_b)
-	{
-		if (env->log == 1)
-			ft_printf("Link already exist or link same room, skip to next\n");
+	if (check_double_link(env, r_a, r_b) == -1)
 		return (-1);
-	}
 	if (!(newlink = ft_memalloc(sizeof(t_link))))
 	{
 		ft_strdel(&line);

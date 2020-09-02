@@ -70,7 +70,7 @@ void	dup_room(t_lemin *env, t_room *room)
 	if (!(out->name = ft_strdup(room->name)))
 	{
 		free(out);
-		error_msg(env, "ERROR : malloc", 2);//free
+		error_msg(env, "ERROR : malloc", 2);
 	}
 	init_room_out(env, room, out);
 	create_out_link(env, room, out);

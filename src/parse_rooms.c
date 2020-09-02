@@ -12,20 +12,30 @@
 
 #include "../include/lem_in.h"
 
-t_xy		save_room_coord(char *line)
+void		fill_room(t_lemin *env, t_room *new)
 {
-	t_xy		coord;
-	int			i;
-
-	i = 0;
-	while (line[i] != ' ')
-		i++;
-	coord.x = ft_atoi(&line[i]);
-	i++;
-	while (line[i] != ' ')
-		i++;
-	coord.y = ft_atoi(&line[i]);
-	return (coord);
+	if (env->start_room == 1)
+	{
+		env->start_room++;
+		env->start = new;
+		new->weight = 0;
+		new->type = 1;
+		new->ants = env->nb_ants;
+	}
+	else if (env->end_room == 1)
+	{
+		env->end_room++;
+		env->end = new;
+		new->type = 2;
+		new->ants = env->nb_ants;
+	}
+	if (env->map[new->key] == NULL)
+		env->map[new->key] = new;
+	else
+	{
+		new->next = env->map[new->key];
+		env->map[new->key] = new;
+	}
 }
 
 void		new_room(t_lemin *env, char *line)
@@ -50,27 +60,35 @@ void		new_room(t_lemin *env, char *line)
 	env->nb_rooms++;
 	new->weight = MAX_WEIGHT;
 	new->ants = 0;
-	if (env->start_room == 1)
+	fill_room(env, new);
+}
+
+void		get_room_start_end(t_lemin *env)
+{
+	int		ret;
+
+	ret = 0;
+	while ((ret = get_next_line(env->fd, &env->line)) > 0)
 	{
-		env->start_room++;
-		env->start = new;
-		new->weight = 0;
-		new->type = 1;
-		new->ants = env->nb_ants;
+		if (ft_strequ(env->line, "##start") || ft_strequ(env->line, "##end"))
+		{
+			ft_strdel(&env->line);
+			error_msg(env, "ERROR : command start/end after start/end", 1);
+		}
+		else if (env->line[0] == '#')
+			get_comment(env->line);
+		else
+			break ;
+		ft_strdel(&env->line);
 	}
-	else if (env->end_room == 1)
-	{
-		env->end_room++;
-		env->end = new;
-		new->type = 2;
-		new->ants = env->nb_ants;
-	}
-	if (env->map[new->key] == NULL)
-		env->map[new->key] = new;
+	if (ret == -1)
+		error_msg(env, "ERROR: reading error or no room for start/end", 1);
+	if (isroom(env->line))
+		new_room(env, env->line);
 	else
 	{
-		new->next = env->map[new->key];
-		env->map[new->key] = new;
+		ft_strdel(&env->line);
+		error_msg(env, "ERROR: no room given after command start/end", 1);
 	}
 }
 
@@ -98,74 +116,7 @@ void		get_command(t_lemin *env)
 	}
 	ft_printf("%s\n", env->line);
 	ft_strdel(&env->line);
-	int		ret = 0;
-	while ((ret = get_next_line(env->fd, &env->line)) > 0)
-	{
-		if (ft_strequ(env->line, "##start") || ft_strequ(env->line, "##end"))
-		{
-			ft_strdel(&env->line);
-			error_msg(env, "ERROR : command start/end after start/end", 1);
-		}
-		else if (env->line[0] == '#')
-			get_comment(env->line);
-		else
-			break ;
-		ft_strdel(&env->line);
-	}
-	if (ret == -1 || ret == 0)
-	{
-		ft_strdel(&env->line);
-		error_msg(env, "ERROR: reading error or no room for start/end", 1);
-	}
-	if (isroom(env->line))
-		new_room(env, env->line);
-	else
-	{
-		ft_strdel(&env->line);
-		error_msg(env, "ERROR: no room given after command start/end", 1);
-	}
-}
-
-int			count_space(char *line)
-{
-	int		space;
-
-	space = 0;
-	while (*line)
-	{
-		if (*line == ' ')
-			space++;
-		line++;
-	}
-	return (space);
-}
-
-int			isroom(char *line)
-{
-	int		i;
-
-	i = 0;
-	if (line[0] == '#' || line[0] == 'L' || count_space(line) != 2)
-		return (0);
-	while (line[i] != ' ')
-	{
-		if (line[i] == '-')
-			return (0);
-		i++;
-	}
-	i++;
-	if (line[i] == '-' || line[i] == '+')
-		i++;
-	while (line[i] != ' ')
-		if (ft_isdigit(line[i++]) == 0)
-			return (0);
-	i++;
-	if (line[i] == '-' || line[i] == '+')
-		i++;
-	while (line[i])
-		if (ft_isdigit(line[i++]) == 0)
-			return (0);
-	return (1);
+	get_room_start_end(env);
 }
 
 void		parse_rooms(t_lemin *env)
@@ -185,7 +136,6 @@ void		parse_rooms(t_lemin *env)
 			break ;
 		else
 		{
-			ft_printf("%s\n", env->line);
 			ft_strdel(&env->line);
 			error_msg(env, "ERROR: Wrong room format", 1);
 		}

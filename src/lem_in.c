@@ -70,7 +70,8 @@ int			main(int ac, char **av)
 	t_lemin		env;
 
 	ft_bzero(&env, sizeof(env));
-	env.map = (t_room **)ft_memalloc(sizeof(t_room *) * HASH_SIZE); //protection
+	if (!(env.map = (t_room **)ft_memalloc(sizeof(t_room *) * HASH_SIZE)))
+		error_exit();
 	env.nb_lines = INT_MAX;
 	if (ac != 1)
 		check_arg(&env, av, ac);

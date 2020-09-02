@@ -17,8 +17,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# include <stdio.h> // a retire
-
 # define PRINT_LOG 1
 # define HASH_SIZE 500000
 # define MAX_WEIGHT INT_MAX
@@ -99,13 +97,15 @@ typedef	struct			s_lemin
 */
 void					error_msg(t_lemin *env, char *str, int free);
 void					error_free_str(t_lemin *env, char *msg, char *str);
+void 					error_exit(void);
 
 /*
 ** parsing.c
 */
 void					parse_input(t_lemin *env);
 void					get_comment(char *str);
-void					get_command(t_lemin *env);
+int						countchar(char *str, char c);
+int 					check_double_link(t_lemin *env, t_room *r_a, t_room *r_b);
 
 /*
 ** parse_ants.c
@@ -117,6 +117,14 @@ void					parse_ants(t_lemin *env);
 */
 void					parse_rooms(t_lemin *env);
 int						isroom(char *line);
+void					get_command(t_lemin *env);
+
+/*
+** parse_rooms_tools.c
+*/
+int			isroom(char *line);
+int			count_space(char *line);
+t_xy		save_room_coord(char *line);
 
 /*
 ** parse_links.c
@@ -147,6 +155,12 @@ void					print_final_paths(t_lemin *env);
 ** suurballe.c
 */
 void					suurballe(t_lemin *env);
+int						add_new_path(t_lemin *env);
+
+/*
+** suurballe_tools.c
+*/
+int			save_and_revert(t_lemin *env, double new, double cost);
 
 /*
 ** bellman_ford.c

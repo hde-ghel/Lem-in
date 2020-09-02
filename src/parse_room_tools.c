@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parse_rooms_tools.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,46 +12,60 @@
 
 #include "../include/lem_in.h"
 
-int		check_double_link(t_lemin *env, t_room *r_a, t_room *r_b)
+int			count_space(char *line)
 {
-	if (get_link_by_room(r_a, r_b) || r_a == r_b)
+	int		space;
+
+	space = 0;
+	while (*line)
 	{
-		if (env->log == 1)
-			ft_printf("Link already exist or link same room, skip to next\n");
-		return (-1);
+		if (*line == ' ')
+			space++;
+		line++;
 	}
-	return (0);
+	return (space);
 }
 
-int		countchar(char *str, char c)
+t_xy		save_room_coord(char *line)
+{
+	t_xy		coord;
+	int			i;
+
+	i = 0;
+	while (line[i] != ' ')
+		i++;
+	coord.x = ft_atoi(&line[i]);
+	i++;
+	while (line[i] != ' ')
+		i++;
+	coord.y = ft_atoi(&line[i]);
+	return (coord);
+}
+
+int			isroom(char *line)
 {
 	int		i;
 
 	i = 0;
-	while (*str)
+	if (!line || line[0] == '#' || line[0] == 'L' || count_space(line) != 2)
+		return (0);
+	while (line[i] != ' ')
 	{
-		if (*str == c)
-			i++;
-		str++;
+		if (line[i] == '-')
+			return (0);
+		i++;
 	}
-	return (i);
-}
-
-void	get_comment(char *str)
-{
-	ft_putendl(str);
-}
-
-void	parse_input(t_lemin *env)
-{
-	if (isatty(env->fd))
-		error_msg(env, "ERROR : No map file specified", 0);
-	parse_ants(env);
-	parse_rooms(env);
-	if (env->start_room == 0 || env->end_room == 0)
-	{
-		ft_strdel(&env->line);
-		error_msg(env, "ERROR : End room or start room missing", 1);
-	}
-	parse_links(env);
+	i++;
+	if (line[i] == '-' || line[i] == '+')
+		i++;
+	while (line[i] != ' ')
+		if (ft_isdigit(line[i++]) == 0)
+			return (0);
+	i++;
+	if (line[i] == '-' || line[i] == '+')
+		i++;
+	while (line[i])
+		if (ft_isdigit(line[i++]) == 0)
+			return (0);
+	return (1);
 }

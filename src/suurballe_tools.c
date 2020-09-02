@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   suurballe_tools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,46 +12,42 @@
 
 #include "../include/lem_in.h"
 
-int		check_double_link(t_lemin *env, t_room *r_a, t_room *r_b)
+void		revert_selection(t_lemin *env)
 {
-	if (get_link_by_room(r_a, r_b) || r_a == r_b)
+	t_link		*link;
+	t_room		*tmp;
+
+	link = env->links_map;
+	while (link)
 	{
-		if (env->log == 1)
-			ft_printf("Link already exist or link same room, skip to next\n");
-		return (-1);
+		if (link->selected > 1)
+		{
+			tmp = link->room_a;
+			link->room_a = link->room_b;
+			link->room_b = tmp;
+			link->inversed = 0;
+			if (link->duplicated > 0)
+				link->weight = 0;
+			else
+				link->weight = 1;
+			link->selected = 0;
+		}
+		link = link->list_next;
 	}
-	return (0);
 }
 
-int		countchar(char *str, char c)
+int			save_and_revert(t_lemin *env, double new, double cost)
 {
-	int		i;
-
-	i = 0;
-	while (*str)
+	if (new < cost)
 	{
-		if (*str == c)
-			i++;
-		str++;
+		if (add_new_path(env) == -1)
+		{
+			env->nb_paths--;
+			return (-1);
+		}
+		revert_selection(env);
 	}
-	return (i);
-}
-
-void	get_comment(char *str)
-{
-	ft_putendl(str);
-}
-
-void	parse_input(t_lemin *env)
-{
-	if (isatty(env->fd))
-		error_msg(env, "ERROR : No map file specified", 0);
-	parse_ants(env);
-	parse_rooms(env);
-	if (env->start_room == 0 || env->end_room == 0)
-	{
-		ft_strdel(&env->line);
-		error_msg(env, "ERROR : End room or start room missing", 1);
-	}
-	parse_links(env);
+	else
+		env->nb_paths--;
+	return (1);
 }
