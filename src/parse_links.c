@@ -107,11 +107,7 @@ void	parse_links(t_lemin *env)
 	int		ret;
 
 	ret = 0;
-	if (!env->line || is_link(env->line, env) != 1)
-	{
-		ft_strdel(&env->line);
-		error_msg(env, "ERROR: Wrong room format\n", 1);
-	}
+	ft_putendl(env->line);
 	ft_strdel(&env->line);
 	while ((ret = get_next_line(env->fd, &env->line)) > 0)
 	{
@@ -122,8 +118,7 @@ void	parse_links(t_lemin *env)
 		else
 		{
 			if (env->log == 1)
-				ft_printf("ERROR: wrong link format, solving with actual \
-					ant farm\n");
+				ft_printf("ERROR: wrong link format, solving actual farm\n");
 			break ;
 		}
 		ft_strdel(&env->line);
