@@ -17,10 +17,10 @@ void		print_one_link_solution(t_lemin *env)
 	int		i;
 
 	i = 0;
-	ft_printf("[LINE]01: ");
+	ft_printf("\n");
 	while (i++ < env->nb_ants)
 		ft_printf("L%i-%s ", i, env->end->name);
-	ft_printf("\n");
+	ft_printf("\nnb_lines = %d\n", 1);
 }
 
 void		print_usage(t_lemin *env)
@@ -70,6 +70,7 @@ int			main(int ac, char **av)
 	t_lemin		env;
 
 	ft_bzero(&env, sizeof(env));
+	env.map = (t_room **)ft_memalloc(sizeof(t_room *) * HASH_SIZE); //protection
 	env.nb_lines = INT_MAX;
 	if (ac != 1)
 		check_arg(&env, av, ac);

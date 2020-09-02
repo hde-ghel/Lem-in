@@ -12,48 +12,6 @@
 
 #include "../include/lem_in.h"
 
-void	print_room_map(t_lemin *env)
-{
-	int		i;
-	t_room	*tmp;
-	t_link	*tmp2;
-
-	i = 0;
-	tmp = NULL;
-	tmp2 = NULL;
-	while (i < HASH_SIZE)
-	{
-		if (env->map[i] != NULL)
-		{
-			ft_printf("Room:\nName : %s\nx = %d  y = %d\nkey = %d\nweight = %d\nduplicated = %d\nroom links:\n", env->map[i]->name,\
-				env->map[i]->coord.x, env->map[i]->coord.y, env->map[i]->key, env->map[i]->weight, env->map[i]->duplicated);
-			tmp2 = env->map[i]->link_list;
-			while (tmp2 != NULL)
-			{
-				ft_printf("       %s-%s\n", tmp2->room_a->name, tmp2->room_b->name);
-				tmp2 = tmp2->room_link_next;
-			}
-			ft_printf("\n");
-			tmp = env->map[i]->next;
-			while (tmp != NULL)
-			{
-				ft_printf("SAME HASH\n");
-				ft_printf("Room:\nName : %s\nx = %d  y = %d\nkey = %d\nweight = %d\nduplicated = %d\nroom links:\n", tmp->name,\
-					tmp->coord.x, tmp->coord.y, tmp->key, tmp->weight, tmp->duplicated);
-				tmp2 = tmp->link_list;
-				while (tmp2 != NULL)
-				{
-					ft_printf("       %s-%s\n", tmp2->room_a->name, tmp2->room_b->name);
-					tmp2 = tmp2->room_link_next;
-				}
-				ft_printf("\n");
-				tmp = tmp->next;
-			}
-		}
-		i++;
-	}
-}
-
 void	print_link_list(t_lemin *env)
 {
 	t_link	*tmp;
@@ -94,17 +52,15 @@ void	print_final_paths(t_lemin *env)
 
 	i = 0;
 	j = 0;
-	ft_printf("nb_path = %d\n", env->max_final_path);
+	ft_printf("nb_path = %f  max_final_path = %d\n", env->nb_lines,
+		env->max_final_path);
 	while (i < env->max_final_path)
 	{
-		if (env->path_tab[i])
-		{
-			j = 0;
-			ft_printf("path weight = %d\n", env->path_tab[i]->weight);
-			ft_printf("path nb = %d\n", env->path_tab[i]->path_nb);
-			while (env->path_tab[i]->room[j])
-				ft_printf("%s->", env->path_tab[i]->room[j++]->name);
-		}
+		j = 0;
+		ft_printf("path weight = %d\n", env->path_tab[i]->weight);
+		ft_printf("path nb = %d\n", env->path_tab[i]->path_nb + 1);
+		while (env->path_tab[i]->room[j])
+			ft_printf("%s->", env->path_tab[i]->room[j++]->name);
 		ft_printf("\n\n");
 		i++;
 	}

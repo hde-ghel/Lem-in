@@ -14,6 +14,8 @@
 
 void	error_msg(t_lemin *env, char *msg, int free)
 {
+	while (get_next_line(env->fd, &env->line) > 0)
+		ft_strdel(&env->line);
 	if (free == 1)
 		free_room_map(env);
 	if (free == 2)
@@ -38,8 +40,11 @@ void	error_msg(t_lemin *env, char *msg, int free)
 
 void	error_free_str(t_lemin *env, char *msg, char *str)
 {
+	while (get_next_line(env->fd, &env->line) > 0)
+		ft_strdel(&env->line);
 	ft_putstr_fd(msg, 2);
 	ft_strdel(&str);
+	free(env->map);
 	if (env->fd)
 		close(env->fd);
 	exit(-1);

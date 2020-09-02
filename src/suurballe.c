@@ -15,9 +15,9 @@
 int			add_new_path(t_lemin *env)
 {
 	t_link	*tmp;
-  t_room  *room;
+	t_room	*room;
 
-  room = env->end;
+	room = env->end;
 	while (room)
 	{
 		tmp = get_link(env, room->path_next, room);
@@ -28,8 +28,8 @@ int			add_new_path(t_lemin *env)
 			if (tmp->reverse)
 				tmp->reverse->selected++;
 		}
-    if (room->path_next == env->start)
-      return(0);
+		if (room->path_next == env->start)
+			return (0);
 		room = room->path_next;
 	}
 	return (-1);
@@ -38,10 +38,10 @@ int			add_new_path(t_lemin *env)
 void		inverse_links(t_lemin *env)
 {
 	t_link	*tmp;
-  t_room  *room;
+	t_room	*room;
 	t_room	*tmproom;
 
-  room = env->end;
+	room = env->end;
 	while (room)
 	{
 		tmp = get_link(env, room->path_next, room);
@@ -54,14 +54,14 @@ void		inverse_links(t_lemin *env)
 			tmp->inversed = 1;
 		}
 		if (room->path_next == env->start)
-			break;
+			break ;
 		room = room->path_next;
 	}
 }
 
-void  reset_room(t_room *room)
+void		reset_room(t_room *room)
 {
-  room->weight = MAX_WEIGHT;
+	room->weight = MAX_WEIGHT;
 	room->path_next = NULL;
 	if (room->in)
 	{
@@ -75,11 +75,11 @@ void  reset_room(t_room *room)
 	}
 }
 
-int		reset(t_lemin *env)
+int			reset(t_lemin *env)
 {
-  t_link *links;
+	t_link	*links;
 
-  links = env->links_map;
+	links = env->links_map;
 	while (links)
 	{
 		reset_room(links->room_a);
@@ -90,10 +90,10 @@ int		reset(t_lemin *env)
 	return (1);
 }
 
-void revert_selection(t_lemin *env)
+void		revert_selection(t_lemin *env)
 {
 	t_link		*link;
-	t_room 		*tmp;
+	t_room		*tmp;
 
 	link = env->links_map;
 	while (link)
@@ -114,9 +114,9 @@ void revert_selection(t_lemin *env)
 	}
 }
 
-int		save_and_revert(t_lemin *env, double new, double cost)
+int			save_and_revert(t_lemin *env, double new, double cost)
 {
-	if ((int)new < (int)cost)
+	if (new < cost)
 	{
 		if (add_new_path(env) == -1)
 		{
@@ -130,30 +130,30 @@ int		save_and_revert(t_lemin *env, double new, double cost)
 	return (1);
 }
 
-void    suurballe(t_lemin *env)
+void		suurballe(t_lemin *env)
 {
-  double   cost;
-  double   new;
+	double	cost;
+	double	new;
 
 	bellman_ford(env);
-  if (add_new_path(env) == -1)
-    error_msg(env, "ERROR : No possible path", 2);
-  check_path_weight(env);
-  cost = MAX_WEIGHT;
-  new = path_cost(env);
-  env->nb_paths++;
-	while ((int)new < (int)cost)
+	if (add_new_path(env) == -1)
+		error_msg(env, "ERROR : No possible path", 2);
+	check_path_weight(env);
+	cost = MAX_WEIGHT;
+	new = path_cost(env);
+	env->nb_paths++;
+	while (new < cost)
 	{
 		duplicate_path(env);
-    inverse_links(env);
-    reset(env);
-    bellman_ford(env);
+		inverse_links(env);
+		reset(env);
+		bellman_ford(env);
 		if (check_path_weight(env) == -1)
 			break ;
 		cost = new;
 		new = path_cost(env);
 		env->nb_paths++;
 		if (save_and_revert(env, new, cost) == -1)
-			break;
+			break ;
 	}
 }

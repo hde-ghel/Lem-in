@@ -12,19 +12,18 @@
 
 #include "../include/lem_in.h"
 
-double	path_cost(t_lemin *env)
+double		path_cost(t_lemin *env)
 {
 	int		tmp;
 	double	turns;
 
 	tmp = env->nb_ants + env->total_weight;
-	turns = ((double)tmp / ((double)env->nb_paths + 1)) - 1.0;
-	if (turns < env->nb_lines)
-		env->nb_lines = turns;
+	turns = ((double)tmp / ((double)env->nb_paths + 1)) - (double)1;
+	env->nb_lines = turns;
 	return (turns);
 }
 
-int		count_select(t_lemin *env)
+int			count_select(t_lemin *env)
 {
 	t_room		*room;
 	t_link		*link;
@@ -50,7 +49,7 @@ int		count_select(t_lemin *env)
 	return (0);
 }
 
-int		check_path_weight(t_lemin *env)
+int			check_path_weight(t_lemin *env)
 {
 	int		tmpweight;
 	t_link	*link;

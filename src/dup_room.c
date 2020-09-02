@@ -58,7 +58,7 @@ void	create_out_link(t_lemin *env, t_room *room, t_room *out)
 	link->selected = 1;
 	link->room_b->path_next = link->room_a;
 	link->room_a->link_list = link;
-	add_link_to_struct(env, link, room, out);
+	add_link_to_struct(env, link);
 }
 
 void	dup_room(t_lemin *env, t_room *room)

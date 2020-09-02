@@ -19,7 +19,7 @@ void		free_room_map(t_lemin *env)
 	t_room	*tmp2;
 
 	i = 0;
-	while (i < HASH_SIZE - 1)
+	while (i < HASH_SIZE - 2)
 	{
 		if (env->map[i] != NULL)
 		{
@@ -36,6 +36,7 @@ void		free_room_map(t_lemin *env)
 		free(env->map[i]);
 		i++;
 	}
+	free(env->map);
 }
 
 void		free_links(t_lemin *env)
@@ -57,7 +58,7 @@ void		free_path_list(t_lemin *env)
 	int		i;
 
 	i = 0;
-	while (i < env->max_final_path)
+	while (i < env->max_final_path + 1)
 	{
 		if (env->path_tab[i])
 		{

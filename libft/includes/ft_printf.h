@@ -94,5 +94,5 @@ int				count_digit(uintmax_t nb, unsigned int base);
 **print_percent.c
 */
 int				print_percent(t_printf *env, t_option *opt);
-char	*ftoa_bis(char *f_str, char *d_str, long double float_part);
+char			*ftoa_bis(char *f_str, char *d_str, long double float_part);
 #endif

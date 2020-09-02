@@ -13,11 +13,20 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 # define BUFF_SIZE_GNL 42
-#if defined(__linux__)
-	#define OPEN_MAX _SC_OPEN_MAX
-	#define intmax_t __intmax_t
-	#define uintmax_t __uintmax_t
-#endif
+
+# if defined(__linux__)
+#  define OPEN_MAX _SC_OPEN_MAX
+#  define intmax_t __intmax_t
+#  define uintmax_t __uintmax_t
+# endif
+
+/*
+** #if defined(__linux__)
+** 	#define OPEN_MAX _SC_OPEN_MAX
+** 	#define intmax_t __intmax_t
+** 	#define uintmax_t __uintmax_t
+** #endif
+*/
 
 # include <string.h>
 # include <stdlib.h>

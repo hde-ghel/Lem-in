@@ -14,7 +14,7 @@
 
 void	get_comment(char *str)
 {
-	ft_printf("%s\n", str);
+	ft_putendl(str);
 }
 
 void	parse_input(t_lemin *env)

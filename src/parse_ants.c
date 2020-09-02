@@ -52,5 +52,5 @@ void			parse_ants(t_lemin *env)
 	}
 	ft_strdel(&line);
 	if (ret == -1 || ret == 0)
-		error_msg(env, "ERROR: file error or empty file\n", 0);
+		error_msg(env, "ERROR: file error or empty file\n", 1);
 }
