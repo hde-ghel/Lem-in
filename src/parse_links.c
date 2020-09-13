@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:54:59 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/03/08 18:35:52 by hde-ghel         ###   ########.fr       */
+/*   Updated: 2020/09/13 14:55:31 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,6 @@ void	parse_links(t_lemin *env)
 		ft_strdel(&env->line);
 	}
 	(ret == -1) ? error_msg(env, "ERROR: read\n", 2) : ft_strdel(&env->line);
+	while (get_next_line(env->fd, &env->line) > 0)
+		ft_strdel(&env->line);
 }
