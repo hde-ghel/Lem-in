@@ -82,5 +82,6 @@ void			print_solution(t_lemin *env)
 			ft_printf("\n");
 		}
 	}
-	ft_printf("\nnb_lines = %d\n", lines + 1);
+	if (env->log == 1)
+		ft_printf("\nnb_lines = %d\n", lines + 1);
 }
