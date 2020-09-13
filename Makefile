@@ -6,14 +6,14 @@
 #    By: hde-ghel <hde-ghel@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/17 16:02:33 by hde-ghel          #+#    #+#              #
-#    Updated: 2020/03/05 20:22:44 by hde-ghel         ###   ########.fr        #
+#    Updated: 2020/09/13 14:28:32 by hde-ghel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
-#FLAGS = -fsanitize=address
+FLAGS = -fsanitize=address
 LIBFT = $(LIBDIR)libft.a
 SRCDIR = ./src/
 OBJDIR = ./objs
