@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:01:39 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/03/08 18:35:54 by hde-ghel         ###   ########.fr       */
+/*   Updated: 2020/09/13 14:06:57 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void		print_usage(t_lemin *env)
 enter a file-name\n");
 	if (env->fd)
 		close(env->fd);
+	free(env->map);
 	exit(0);
 }
 
