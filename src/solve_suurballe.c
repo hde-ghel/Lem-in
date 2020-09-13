@@ -24,7 +24,7 @@ void	save_path(t_lemin *env, t_link *link, int nb_path)
 		return ;
 	if (!(new_path = ft_memalloc(sizeof(t_path))))
 		error_msg(env, "ERROR : malloc", 3);
-	if (!(new_path->room = ft_memalloc(sizeof(t_room *) * 500)))
+	if (!(new_path->room = ft_memalloc(sizeof(t_room *) * 2500)))
 	{
 		free(new_path);
 		error_msg(env, "ERROR : malloc", 3);
