@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:01:39 by hde-ghel          #+#    #+#             */
-/*   Updated: 2020/03/08 18:35:54 by hde-ghel         ###   ########.fr       */
+/*   Updated: 2020/09/14 22:08:13 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ int			check_next_room(t_lemin *env, t_path *new_path, t_room *room)
 	return (0);
 }
 
+static void	link_assign(t_link *link)
+{
+	link->visited = 1;
+	link->reverse->visited = 1;
+}
+
 t_room		*get_next_room(t_lemin *env, t_room *tmp, t_path *new_path)
 {
 	t_link *link;
@@ -67,19 +73,17 @@ t_room		*get_next_room(t_lemin *env, t_room *tmp, t_path *new_path)
 		if (link->selected == 1 && link->visited != 1)
 		{
 			if ((ft_strcmp(link->room_a->name, tmp->name) == 0)
-				&& check_next_room(env, new_path, link->room_b) == 0)
-				{
-				link->visited = 1;
-				link->reverse->visited = 1;
+			&& check_next_room(env, new_path, link->room_b) == 0)
+			{
+				link_assign(link);
 				return (link->room_b);
-				}
+			}
 			if ((ft_strcmp(link->room_b->name, tmp->name) == 0)
-				&& (check_next_room(env, new_path, link->room_a) == 0))
-				{
-				link->visited = 1;
-				link->reverse->visited = 1;
+			&& (check_next_room(env, new_path, link->room_a) == 0))
+			{
+				link_assign(link);
 				return (link->room_a);
-				}
+			}
 		}
 		link = link->list_next;
 	}
