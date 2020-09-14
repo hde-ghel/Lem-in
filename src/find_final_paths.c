@@ -64,14 +64,22 @@ t_room		*get_next_room(t_lemin *env, t_room *tmp, t_path *new_path)
 		return (tmp);
 	while (link)
 	{
-		if (link->selected == 1)
+		if (link->selected == 1 && link->visited != 1)
 		{
 			if ((ft_strcmp(link->room_a->name, tmp->name) == 0)
 				&& check_next_room(env, new_path, link->room_b) == 0)
+				{
+				link->visited = 1;
+				link->reverse->visited = 1;
 				return (link->room_b);
+				}
 			if ((ft_strcmp(link->room_b->name, tmp->name) == 0)
 				&& (check_next_room(env, new_path, link->room_a) == 0))
+				{
+				link->visited = 1;
+				link->reverse->visited = 1;
 				return (link->room_a);
+				}
 		}
 		link = link->list_next;
 	}

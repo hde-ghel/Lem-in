@@ -52,7 +52,7 @@ void	print_final_paths(t_lemin *env)
 
 	i = 0;
 	j = 0;
-	ft_printf("nb_path = %f  max_final_path = %d\n", env->nb_lines,
+	ft_printf("nb_line = %f  max_final_path = %d\n", env->nb_lines,
 		env->max_final_path);
 	while (i < env->max_final_path)
 	{
