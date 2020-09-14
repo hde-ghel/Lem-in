@@ -6,7 +6,7 @@
 /*   By: hde-ghel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 11:25:46 by hde-ghel          #+#    #+#             */
-/*   Updated: 2019/12/14 14:59:32 by hde-ghel         ###   ########.fr       */
+/*   Updated: 2020/09/14 22:21:08 by ababaie-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,6 @@
 ** 	#define uintmax_t __uintmax_t
 ** #endif
 */
-
- #if defined(__linux__)
- 	#define OPEN_MAX _SC_OPEN_MAX
- 	#define intmax_t __intmax_t
- 	#define uintmax_t __uintmax_t
- #endif
-
 
 # include <string.h>
 # include <stdlib.h>
