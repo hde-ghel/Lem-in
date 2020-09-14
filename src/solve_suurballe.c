@@ -24,12 +24,12 @@ void	save_path(t_lemin *env, t_link *link, int nb_path)
 		return ;
 	if (!(new_path = ft_memalloc(sizeof(t_path))))
 		error_msg(env, "ERROR : malloc", 3);
-	if (!(new_path->room = ft_memalloc(sizeof(t_room *) * 2500)))
+	if (!(new_path->room = ft_memalloc(sizeof(t_room *) * 1500)))
 	{
 		free(new_path);
 		error_msg(env, "ERROR : malloc", 3);
 	}
-	while ((tmp = get_next_room(env, tmp, new_path)) != env->end)
+	while ((tmp = get_next_room(env, tmp, new_path)) != env->end && tmp)
 		new_path->room[i++] = tmp;
 	new_path->weight = i + 1;
 	env->final_path_weight += i;

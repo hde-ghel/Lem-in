@@ -22,6 +22,13 @@
 ** #endif
 */
 
+ #if defined(__linux__)
+ 	#define OPEN_MAX _SC_OPEN_MAX
+ 	#define intmax_t __intmax_t
+ 	#define uintmax_t __uintmax_t
+ #endif
+
+
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
