@@ -1,6 +1,9 @@
 # Lem-in
 Pathfinding algorithm, flow-chart management.
 
+## Subject
+[Lem-in subject](https://cdn.intra.42.fr/pdf/pdf/6161/lem-in.en.pdf)
+
 ## Goal
 
 Find the shortest path to get **n** ants across a colony (comprised of rooms and tunnels). <br />
@@ -63,7 +66,6 @@ The rooms also contain connection and path next/prev structs, which are also sto
 <br />
 
 Unfortunately, accessing an individual room among 10,000 by iterating through a linked list is a pain, and can slow down 
-<br />
 your program considerably. I therefore **implemented a hashtable** for more efficient room storage, which means 
 I can almost instantaneously jump from ```Room 1``` to ```Room 9999```, if they are connected. 
 Collisions are accounted for, and are stored adjacently to each other. <br />
