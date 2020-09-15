@@ -65,16 +65,9 @@ The rooms also contain connection and path next/prev structs, which are also sto
 
 <br />
 
-Unfortunately, accessing an individual room among 10,000 by iterating through a linked list is a pain, and can slow down 
-your program considerably. I therefore **implemented a hashtable** for more efficient room storage, which means 
-I can almost instantaneously jump from ```Room 1``` to ```Room 9999```, if they are connected. 
-Collisions are accounted for, and are stored adjacently to each other. <br />
+I **implemented a hashtable** for more efficient room storage, which means I can almost instantaneously jump from ```Room 1``` to ```Room 9999```, if they are connected by a link (giving me the name of the room for the hashcode).  <br />
 
-**My path-solving algorithm functions recursively**, going down every possible path simultaneously until it has reached 
-the end room, at which point it starts retracing its path back to the start. The first solution it finds therefore _must_ 
-be the shortest path, as any longer paths would keep the recursive search going. 
-Since all possible paths are pursued simultaneously, rooms that link back to themselves are not a problem. <br />
-If no path is found, an error message is displayed and the program exits. 
+**The path-solving algorithm** I used Suurballe algorithm witch is a more strict requirement than Bhandari's algorithm that does allow two paths to use the same node. Completed with Belman-ford algorithm (shortest path finding algorithm) we could manage to have a really efficient path solving algorithm for a nodes and edges disjoint chart-flow problematic.
 
 ## Usage
 Run ```make```.
